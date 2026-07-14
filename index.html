@@ -1,0 +1,1083 @@
+<title>NovaManage — Build Roadmap</title>
+<style>
+  :root {
+    --ground:#f2f4f8; --ground-2:#e8ecf3;
+    --surface:#ffffff; --surface-2:#f4f6fa; --line:#e2e7ef; --line-strong:#c9d2e0;
+    --ink:#111827; --ink-2:#3f4a5c; --ink-3:#7a8698;
+    --brand:#2f6fe0; --brand-soft:#e8effc;
+
+    /* the road itself — grays only */
+    --asphalt:#8f97a3; --asphalt-edge:#6b7280; --asphalt-side:#565d68; --dash:#f8fafc;
+
+    --done:#16a45c; --done-2:#0e7c44; --done-soft:#dff3e8;
+    --now:#2f7ff0; --now-2:#1e63cc; --now-soft:#e3eefd;
+    --soon:#f0900f; --soon-2:#c26e18; --soon-soft:#fdeed7;
+    --blocked:#d4483b; --blocked-soft:#fbe7e4;
+    --shadow:0 1px 2px rgba(17,24,39,.06), 0 12px 32px rgba(17,24,39,.09);
+    --shadow-lg:0 2px 4px rgba(17,24,39,.08), 0 24px 60px rgba(17,24,39,.14);
+    --mono:ui-monospace,"SF Mono","Cascadia Code","Roboto Mono",Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground:#0b0f16; --ground-2:#111723;
+      --surface:#161d29; --surface-2:#1c2532; --line:#27303f; --line-strong:#394455;
+      --ink:#eef2f8; --ink-2:#b7c1d1; --ink-3:#808c9f;
+      --brand:#5f9bf0; --brand-soft:#16243b;
+      --asphalt:#3a4250; --asphalt-edge:#2b323d; --asphalt-side:#1e242d; --dash:#aeb8c6;
+      --done:#31c47e; --done-2:#26a869; --done-soft:#10301f;
+      --now:#4d97f5; --now-2:#3b7fdc; --now-soft:#12253f;
+      --soon:#f3a53a; --soon-2:#d4842c; --soon-soft:#2e2210;
+      --blocked:#f0776a; --blocked-soft:#331512;
+      --shadow:0 1px 2px rgba(0,0,0,.45), 0 14px 40px rgba(0,0,0,.45);
+      --shadow-lg:0 2px 4px rgba(0,0,0,.5), 0 28px 70px rgba(0,0,0,.55);
+    }
+  }
+  :root[data-theme="light"]{--ground:#f2f4f8;--ground-2:#e8ecf3;--surface:#fff;--surface-2:#f4f6fa;--line:#e2e7ef;--line-strong:#c9d2e0;--ink:#111827;--ink-2:#3f4a5c;--ink-3:#7a8698;--brand:#2f6fe0;--brand-soft:#e8effc;--asphalt:#8f97a3;--asphalt-edge:#6b7280;--asphalt-side:#565d68;--dash:#f8fafc;--done:#16a45c;--done-2:#0e7c44;--done-soft:#dff3e8;--now:#2f7ff0;--now-2:#1e63cc;--now-soft:#e3eefd;--soon:#f0900f;--soon-2:#c26e18;--soon-soft:#fdeed7;--blocked:#d4483b;--blocked-soft:#fbe7e4;--shadow:0 1px 2px rgba(17,24,39,.06),0 12px 32px rgba(17,24,39,.09);--shadow-lg:0 2px 4px rgba(17,24,39,.08),0 24px 60px rgba(17,24,39,.14);}
+  :root[data-theme="dark"]{--ground:#0b0f16;--ground-2:#111723;--surface:#161d29;--surface-2:#1c2532;--line:#27303f;--line-strong:#394455;--ink:#eef2f8;--ink-2:#b7c1d1;--ink-3:#808c9f;--brand:#5f9bf0;--brand-soft:#16243b;--asphalt:#3a4250;--asphalt-edge:#2b323d;--asphalt-side:#1e242d;--dash:#aeb8c6;--done:#31c47e;--done-2:#26a869;--done-soft:#10301f;--now:#4d97f5;--now-2:#3b7fdc;--now-soft:#12253f;--soon:#f3a53a;--soon-2:#d4842c;--soon-soft:#2e2210;--blocked:#f0776a;--blocked-soft:#331512;--shadow:0 1px 2px rgba(0,0,0,.45),0 14px 40px rgba(0,0,0,.45);--shadow-lg:0 2px 4px rgba(0,0,0,.5),0 28px 70px rgba(0,0,0,.55);}
+
+  *{box-sizing:border-box}
+  body{margin:0;background:
+      radial-gradient(90% 60% at 15% 0%, var(--ground-2), transparent 60%),
+      radial-gradient(80% 50% at 90% 100%, var(--ground-2), transparent 55%),
+      var(--ground);
+    color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh}
+  .wrap{max-width:1100px;margin:0 auto;padding:34px 22px 70px}
+
+  header.top{display:flex;flex-wrap:wrap;gap:18px 28px;align-items:flex-end;justify-content:space-between}
+  .eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);font-weight:700;margin:0 0 8px}
+  .eyebrow b{color:var(--brand)}
+  h1{font-size:clamp(26px,4.2vw,36px);line-height:1.04;margin:0;letter-spacing:-.03em;font-weight:800;text-wrap:balance}
+  .sub{color:var(--ink-3);font-size:13.5px;margin:9px 0 0}
+  .meter{text-align:right}
+  .meter .pct{font-size:42px;font-weight:800;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+  .meter .pct span{font-size:20px;color:var(--ink-3);font-weight:600}
+  .meter .ph{font-size:12.5px;color:var(--ink-2);margin-top:4px}
+
+  /* Theme toggle */
+  .theme-toggle{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;
+    background:var(--surface);border:1px solid var(--line);cursor:pointer;box-shadow:var(--shadow);color:var(--ink-2);
+    transition:transform .15s,color .15s;flex:none;align-self:flex-start}
+  .theme-toggle:hover{transform:translateY(-1px);color:var(--ink)}
+  .theme-toggle:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+  .theme-toggle svg{width:19px;height:19px;display:block}
+  .theme-toggle .ico-sun{display:none}
+  :root[data-theme="dark"] .theme-toggle .ico-sun{display:block}
+  :root[data-theme="dark"] .theme-toggle .ico-moon{display:none}
+
+  /* Last-updated ribbon + changelog */
+  .ribbon{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;margin:18px 0 0;padding:11px 15px;
+    background:var(--surface);border:1px solid var(--line);border-radius:12px;font-size:12.5px;color:var(--ink-2);box-shadow:var(--shadow)}
+  .ribbon b{color:var(--ink)}
+  .ribbon .rb-actions{margin-left:auto;display:inline-flex;align-items:center;gap:14px}
+  .syncbadge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--done-2);
+    background:var(--done-soft);border-radius:9px;padding:5px 12px;white-space:nowrap;cursor:default}
+  .syncbadge .pulse{width:7px;height:7px;border-radius:50%;background:var(--done);animation:beat 2s ease-in-out infinite}
+  @media (prefers-reduced-motion:reduce){.syncbadge .pulse{animation:none}}
+  .ribbon summary{cursor:pointer;font-weight:650;color:var(--brand);list-style:none;user-select:none}
+  .ribbon summary::-webkit-details-marker{display:none}
+  .ribbon ul{margin:8px 0 2px;padding-left:16px;display:flex;flex-direction:column;gap:5px;width:100%}
+  .ribbon li{color:var(--ink-2)} .ribbon li b{font-family:var(--mono);font-size:11px;color:var(--ink-3);font-weight:600}
+
+  /* Blocker banner */
+  .blockbar{display:flex;align-items:baseline;gap:9px;margin:14px 0 0;padding:11px 15px;width:100%;text-align:left;
+    background:var(--blocked-soft);border:none;border-left:4px solid var(--blocked);border-radius:10px;
+    font:inherit;font-size:12.5px;color:var(--ink-2);cursor:pointer}
+  .blockbar b{color:var(--blocked)}
+  .blockbar:hover{filter:brightness(.985)}
+  .blockbar:focus-visible{outline:2px solid var(--blocked);outline-offset:2px}
+
+  /* the car at the current stage */
+  .car{transform-box:fill-box;transform-origin:center;animation:carbob 2.2s ease-in-out infinite}
+  @keyframes carbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+  @media (prefers-reduced-motion:reduce){.car{animation:none}}
+
+  .legend{display:flex;flex-wrap:wrap;gap:8px 20px;margin:22px 0 0;font-size:12.5px;color:var(--ink-2)}
+  .legend span{display:inline-flex;align-items:center;gap:8px}
+  .ld{width:12px;height:12px;border-radius:50%;flex:none}
+  .ld.done{background:var(--done)} .ld.now{background:var(--now);box-shadow:0 0 0 3px var(--now-soft)}
+  .ld.soon{background:var(--soon)}
+  .hint{margin-left:auto;font-size:11.5px;color:var(--ink-3);display:none}
+
+  .stage-scroll{margin-top:2px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .stage{width:100%;min-width:820px;display:block}
+  svg.road{width:100%;height:auto;display:block;overflow:visible}
+
+  .marker{cursor:pointer}
+  .marker .halo{opacity:0;transition:opacity .18s}
+  .marker.sel .halo{opacity:1}
+  .marker:focus{outline:none}
+  .marker:focus-visible .halo{opacity:1}
+  .lblgrp{transition:transform .18s ease}
+  .marker:hover .lblgrp{transform:translateY(-3px)}
+  .ping{transform-box:fill-box;transform-origin:center;animation:ping 2s cubic-bezier(0,0,.2,1) infinite}
+  .nowcore{transform-box:fill-box;transform-origin:center;animation:beat 2s ease-in-out infinite}
+  @keyframes ping{0%{transform:scale(1);opacity:.5}70%,100%{transform:scale(3);opacity:0}}
+  @keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+  @media (prefers-reduced-motion:reduce){.ping{animation:none;opacity:0}.nowcore{animation:none}}
+
+  /* Stage navigation */
+  .stagenav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:6px 2px 14px}
+  .navbtn{display:inline-flex;align-items:center;gap:7px;font:inherit;font-size:13px;font-weight:650;color:var(--ink-2);
+    background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:9px 16px;cursor:pointer;
+    box-shadow:var(--shadow);transition:transform .15s,color .15s,border-color .15s;white-space:nowrap}
+  .navbtn:hover:not(:disabled){transform:translateY(-1px);color:var(--ink);border-color:var(--line-strong)}
+  .navbtn:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+  .navbtn:disabled{opacity:.35;cursor:default;box-shadow:none}
+  .navbtn .nb-code{font-family:var(--mono);font-weight:700;color:var(--brand)}
+  .navdots{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center}
+  .navdot{width:11px;height:11px;border-radius:50%;border:none;padding:0;cursor:pointer;background:var(--line-strong);
+    transition:transform .18s, box-shadow .18s}
+  .navdot.done{background:var(--done)} .navdot.now{background:var(--now)} .navdot.soon{background:var(--soon)}
+  .navdot.cur{transform:scale(1.45);box-shadow:0 0 0 4px var(--brand-soft)}
+  .navdot:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+  @media (max-width:560px){ .navbtn .nb-t{display:none} }
+
+  /* Detail panel */
+  .panel{margin-top:10px;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-lg);
+    overflow:hidden;animation:rise .24s ease}
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .p-head{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding:20px 22px 16px}
+  .p-code{font-family:var(--mono);font-size:12.5px;font-weight:700;padding:4px 10px;border-radius:8px;color:#fff}
+  .p-code.done{background:var(--done-2)} .p-code.now{background:var(--now-2)} .p-code.soon{background:var(--soon-2)}
+  .p-head h2{font-size:19px;margin:0;font-weight:750;letter-spacing:-.015em;flex:1 1 auto;min-width:200px}
+  .p-pill{font-size:11px;font-weight:750;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:99px}
+  .p-pill.done{color:var(--done-2);background:var(--done-soft)} .p-pill.now{color:var(--now-2);background:var(--now-soft)}
+  .p-pill.soon{color:var(--soon-2);background:var(--soon-soft)}
+  .p-sub{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;padding:0 22px 14px;border-bottom:1px solid var(--line);
+    font-size:12.5px;color:var(--ink-3)}
+  .p-sub b{color:var(--ink-2);font-weight:650}
+  .p-prog{display:flex;align-items:center;gap:9px;font-variant-numeric:tabular-nums}
+  .p-prog .pbar{width:150px;height:7px;border-radius:99px;background:var(--surface-2);border:1px solid var(--line);overflow:hidden}
+  .p-prog .pbar>i{display:block;height:100%;border-radius:99px}
+  .p-plain{padding:13px 22px;margin:0;font-size:13.5px;line-height:1.55;color:var(--ink-2);
+    background:var(--brand-soft);border-bottom:1px solid var(--line)}
+  .p-plain b{color:var(--brand)}
+  .tp{font-size:12.5px;line-height:1.5;color:var(--ink-3);margin-top:4px}
+  ul.tasks{list-style:none;margin:0;padding:8px 22px 12px}
+  .task{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+  .task:last-child{border-bottom:0}
+  .tick{width:18px;height:18px;border-radius:6px;flex:none;margin-top:1px;border:2px solid var(--line-strong);
+    display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff}
+  .task.done .tick{background:var(--done);border-color:var(--done)}
+  .task.active .tick{background:var(--now);border-color:var(--now);border-radius:50%}
+  .task.blocked .tick{background:var(--blocked);border-color:var(--blocked)}
+  .tbody{flex:1;min-width:0}
+  .tt{font-size:13.5px;color:var(--ink)} .task.done .tt{color:var(--ink-2)}
+  .tmeta{display:flex;flex-wrap:wrap;gap:6px;margin-top:5px}
+  .chip{font-size:10.5px;font-weight:650;padding:2px 8px;border-radius:6px;background:var(--surface-2);color:var(--ink-2);border:1px solid var(--line)}
+  .chip.owner{color:var(--brand)} .chip.tid{font-family:var(--mono);font-weight:600}
+  .gmsg{font-size:12px;color:var(--blocked);font-weight:600;margin-top:5px}
+  .p-exit{padding:14px 22px;background:var(--surface-2);border-top:1px solid var(--line);font-size:12.5px;color:var(--ink-2)}
+  .p-exit b{color:var(--ink);font-weight:700}
+
+  .foot{margin-top:36px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-3);
+    display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
+  code{font-family:var(--mono);font-size:.92em}
+
+  @media (max-width:640px){ .meter{text-align:left} header.top{align-items:flex-start} .hint{display:block} }
+
+  /* ============================ App shell (two views) ============================ */
+  .appbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:26px;padding-bottom:18px;
+    border-bottom:1px solid var(--line)}
+  .brand{display:inline-flex;align-items:center;gap:9px;font-weight:800;letter-spacing:-.02em;font-size:15px}
+  .brand .bmark{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--brand),var(--now-2));
+    display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:14px;box-shadow:var(--shadow)}
+  .appnav{display:inline-flex;gap:4px;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:4px}
+  .appnav-btn{display:inline-flex;align-items:center;gap:7px;font:inherit;font-size:13px;font-weight:650;color:var(--ink-3);
+    background:transparent;border:none;border-radius:9px;padding:7px 14px;cursor:pointer;transition:color .15s,background .15s}
+  .appnav-btn:hover{color:var(--ink)}
+  .appnav-btn.active{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+  .appnav-btn .ab-badge{font-size:10px;font-weight:800;background:var(--brand);color:#fff;border-radius:99px;
+    min-width:16px;height:16px;padding:0 4px;display:inline-flex;align-items:center;justify-content:center}
+  .appbar .spacer{margin-left:auto}
+  @media (max-width:600px){ .appnav-btn .ab-t{display:none} }
+
+  /* ============================ Client Communication ============================ */
+  .cc-demobar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin:18px 0 16px;padding:12px 16px;
+    background:var(--soon-soft);border:1px solid var(--line);border-left:4px solid var(--soon);border-radius:12px;
+    font-size:13px;color:var(--ink-2)}
+  .cc-demobar b{color:var(--soon-2)}
+  .cc-syncstate{display:inline-flex;align-items:center;gap:7px;font-weight:650}
+  .cc-syncdot{width:9px;height:9px;border-radius:50%;background:var(--soon);flex:none}
+  .cc-syncdot.ok{background:var(--done)} .cc-syncdot.busy{background:var(--now);animation:beat 1.3s ease-in-out infinite}
+  .cc-syncdot.err{background:var(--blocked)}
+  .cc-demobar .spacer{margin-left:auto}
+  .cc-syncbtn{display:inline-flex;align-items:center;gap:6px;font:inherit;font-size:12.5px;font-weight:700;
+    color:var(--brand);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:7px 13px;cursor:pointer;
+    transition:transform .15s}
+  .cc-syncbtn:hover:not(:disabled){transform:translateY(-1px)}
+  .cc-syncbtn:disabled{opacity:.5;cursor:default}
+  .cc-simlink{font-size:11.5px;color:var(--ink-3);text-decoration:underline;cursor:pointer;background:none;border:none;font:inherit}
+
+  .cc-grid{display:grid;grid-template-columns:300px minmax(0,1fr) 290px;gap:16px;align-items:start}
+  @media (max-width:1024px){ .cc-grid{grid-template-columns:260px minmax(0,1fr)} .cc-ctx{display:none} }
+  @media (max-width:720px){ .cc-grid{grid-template-columns:1fr} .cc-list.has-sel{display:none} }
+
+  .cc-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+
+  /* ---- left: conversation list ---- */
+  .cc-list{position:sticky;top:12px}
+  .cc-search{width:100%;font:inherit;font-size:13px;color:var(--ink);background:var(--surface);border:1px solid var(--line);
+    border-radius:10px;padding:9px 12px;margin-bottom:10px}
+  .cc-search:focus{outline:2px solid var(--brand);outline-offset:1px;border-color:var(--brand)}
+  .cc-filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+  .cc-fchip{font:inherit;font-size:11.5px;font-weight:650;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);
+    border-radius:99px;padding:4px 11px;cursor:pointer;transition:all .12s}
+  .cc-fchip.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .cc-convos{display:flex;flex-direction:column;gap:8px;max-height:640px;overflow-y:auto;padding-right:2px}
+  .cc-convo{display:flex;gap:11px;padding:12px;text-align:left;width:100%;background:var(--surface);border:1px solid var(--line);
+    border-radius:13px;cursor:pointer;font:inherit;transition:border-color .12s,transform .12s;position:relative}
+  .cc-convo:hover{transform:translateY(-1px);border-color:var(--line-strong)}
+  .cc-convo.sel{border-color:var(--brand);box-shadow:0 0 0 1px var(--brand)}
+  .cc-ava{width:40px;height:40px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:14px;color:#fff}
+  .cc-cbody{flex:1;min-width:0}
+  .cc-crow{display:flex;align-items:baseline;gap:6px}
+  .cc-cname{font-size:13.5px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .cc-ctime{margin-left:auto;font-size:11px;color:var(--ink-3);white-space:nowrap;flex:none}
+  .cc-cco{font-size:11.5px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .cc-cprev{font-size:12px;color:var(--ink-2);margin-top:3px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+  .cc-cmeta{display:flex;align-items:center;gap:6px;margin-top:7px;flex-wrap:wrap}
+  .cc-badge{font-size:9.5px;font-weight:750;letter-spacing:.03em;text-transform:uppercase;padding:2px 6px;border-radius:5px;
+    display:inline-flex;align-items:center;gap:3px}
+  .cc-badge.wa{color:#128c4b;background:#128c4b22}
+  .cc-badge.ghl{color:var(--brand);background:var(--brand-soft)}
+  .cc-unread{font-size:10px;font-weight:800;color:#fff;background:var(--brand);border-radius:99px;min-width:17px;height:17px;
+    padding:0 5px;display:inline-flex;align-items:center;justify-content:center}
+  .cc-actreq{width:8px;height:8px;border-radius:50%;background:var(--blocked);flex:none}
+  .cc-syncmini{font-size:10px;color:var(--ink-3);margin-left:auto;display:inline-flex;align-items:center;gap:4px}
+  .cc-syncmini i{width:6px;height:6px;border-radius:50%;background:var(--done);display:inline-block}
+
+  /* ---- center: conversation ---- */
+  .cc-conv-head{display:flex;align-items:center;gap:12px;padding:15px 18px;border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg,var(--surface-2),transparent)}
+  .cc-conv-head .cc-ava{width:44px;height:44px}
+  .cc-ch-name{font-size:16px;font-weight:750}
+  .cc-ch-sub{font-size:12px;color:var(--ink-3);margin-top:2px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+  .cc-ch-badges{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+  .cc-lastsync{font-size:10.5px;color:var(--ink-3)}
+
+  /* AI summary */
+  .cc-summary{margin:0;border-bottom:1px solid var(--line);background:var(--brand-soft)}
+  .cc-summary summary{cursor:pointer;list-style:none;padding:13px 18px;display:flex;align-items:center;gap:9px;font-weight:700;
+    font-size:13px;color:var(--brand)}
+  .cc-summary summary::-webkit-details-marker{display:none}
+  .cc-summary summary .ai-tag{font-size:9.5px;font-weight:750;letter-spacing:.04em;text-transform:uppercase;color:var(--brand);
+    border:1px solid var(--brand);border-radius:6px;padding:2px 6px;margin-left:auto}
+  .cc-sumgrid{padding:4px 18px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px 20px}
+  @media (max-width:560px){ .cc-sumgrid{grid-template-columns:1fr} }
+  .cc-sumitem .k{font-size:10.5px;font-weight:750;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);margin-bottom:4px}
+  .cc-sumitem .v{font-size:12.5px;color:var(--ink-2);line-height:1.5}
+  .cc-sumitem ul{margin:0;padding-left:15px} .cc-sumitem li{margin:2px 0}
+  .cc-sumnote{grid-column:1/-1;font-size:11px;color:var(--ink-3);font-style:italic;border-top:1px dashed var(--line);padding-top:9px}
+
+  .cc-readonly{display:flex;align-items:center;gap:8px;padding:10px 18px;font-size:12px;color:var(--ink-2);
+    background:var(--surface-2);border-bottom:1px solid var(--line)}
+  .cc-readonly svg{width:15px;height:15px;flex:none;color:var(--ink-3)}
+
+  .cc-thread{padding:16px 18px;display:flex;flex-direction:column;gap:3px;max-height:600px;overflow-y:auto;
+    background:
+      repeating-linear-gradient(0deg,transparent,transparent 26px,color-mix(in srgb,var(--line) 30%,transparent) 26px,color-mix(in srgb,var(--line) 30%,transparent) 27px)}
+  .cc-loadmore{align-self:center;font:inherit;font-size:12px;font-weight:650;color:var(--brand);background:var(--surface);
+    border:1px solid var(--line);border-radius:99px;padding:6px 15px;margin-bottom:10px;cursor:pointer}
+  .cc-daysep{align-self:center;font-size:10.5px;font-weight:700;color:var(--ink-3);background:var(--surface);border:1px solid var(--line);
+    border-radius:99px;padding:3px 12px;margin:10px 0}
+  .cc-msg{max-width:76%;display:flex;flex-direction:column;gap:3px;margin:2px 0}
+  .cc-msg.out{align-self:flex-end;align-items:flex-end}
+  .cc-msg.in{align-self:flex-start}
+  .cc-bubble{padding:9px 12px;border-radius:14px;font-size:13px;line-height:1.5;color:var(--ink);position:relative;
+    box-shadow:0 1px 1px rgba(0,0,0,.05)}
+  .cc-msg.in .cc-bubble{background:var(--surface);border:1px solid var(--line);border-bottom-left-radius:5px}
+  .cc-msg.out .cc-bubble{background:var(--done-soft);border:1px solid color-mix(in srgb,var(--done) 30%,var(--line));border-bottom-right-radius:5px}
+  .cc-sender{font-size:11px;font-weight:750;color:var(--brand);margin:0 4px 2px}
+  .cc-msg.out .cc-sender{color:var(--done-2)}
+  .cc-bmeta{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--ink-3);margin:0 4px}
+  .cc-bmeta .stat{color:var(--now-2)}
+  .cc-att{margin-top:7px;display:flex;align-items:center;gap:9px;padding:8px 10px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;font-size:12px;color:var(--ink-2)}
+  .cc-att .ai{width:30px;height:30px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;font-size:15px;
+    background:var(--brand-soft)}
+  .cc-att .an{font-weight:650;color:var(--ink)} .cc-att .as{font-size:10.5px;color:var(--ink-3)}
+  .cc-att.img{padding:0;border:none;background:none}
+  .cc-att.img img,.cc-imgph{width:190px;max-width:100%;height:120px;border-radius:11px;object-fit:cover;border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;background:var(--surface-2);color:var(--ink-3);font-size:12px}
+  .cc-link{color:var(--brand);text-decoration:underline}
+  .cc-unsup{font-style:italic;color:var(--ink-3)}
+  .cc-labels{display:flex;flex-wrap:wrap;gap:4px;margin:1px 4px 0}
+  .cc-lab{font-size:9.5px;font-weight:750;letter-spacing:.02em;padding:2px 7px;border-radius:6px}
+  .cc-actions{display:flex;gap:8px;margin:3px 4px 0;opacity:0;transition:opacity .12s}
+  .cc-msg:hover .cc-actions,.cc-msg:focus-within .cc-actions{opacity:1}
+  .cc-mbtn{font:inherit;font-size:10.5px;font-weight:650;color:var(--ink-3);background:none;border:none;cursor:pointer;padding:0;display:inline-flex;align-items:center;gap:4px}
+  .cc-mbtn:hover{color:var(--brand)}
+  .cc-mbtn.done{color:var(--done-2)}
+  .cc-mbtn select{font:inherit;font-size:10.5px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink-2);padding:1px 3px}
+
+  /* ---- right: project context ---- */
+  .cc-ctx{position:sticky;top:12px;display:flex;flex-direction:column;gap:14px}
+  .cc-ctx .cc-card{padding:15px 16px}
+  .cc-ctx h3{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin:0 0 12px;font-weight:750}
+  .cc-ctxrow{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid var(--line);font-size:12.5px}
+  .cc-ctxrow:last-child{border-bottom:0}
+  .cc-ctxrow .k{color:var(--ink-3)} .cc-ctxrow .v{color:var(--ink);font-weight:650;text-align:right}
+  .cc-ctxprog{height:7px;border-radius:99px;background:var(--surface-2);border:1px solid var(--line);overflow:hidden;margin:4px 0 2px}
+  .cc-ctxprog>i{display:block;height:100%;background:var(--now);border-radius:99px}
+  .cc-tag{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;padding:4px 9px;border-radius:8px;background:var(--surface-2);
+    border:1px solid var(--line);color:var(--ink-2);margin:3px 4px 0 0}
+  .cc-tag.warn{color:var(--blocked);background:var(--blocked-soft);border-color:transparent}
+  .cc-tag.appr{color:var(--soon-2);background:var(--soon-soft);border-color:transparent}
+  .cc-team{display:flex;flex-wrap:wrap;gap:6px}
+  .cc-teammate{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink-2)}
+  .cc-teammate i{width:22px;height:22px;border-radius:50%;color:#fff;font-size:10px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;font-style:normal}
+  .cc-filelink{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-2);padding:5px 0}
+  .cc-filelink b{font-size:15px}
+
+  /* ---- empty / error states ---- */
+  .cc-empty{padding:56px 24px;text-align:center;color:var(--ink-3)}
+  .cc-empty .em-ico{font-size:34px;margin-bottom:10px}
+  .cc-empty h4{font-size:15px;color:var(--ink);margin:0 0 6px;font-weight:700}
+  .cc-empty p{font-size:13px;margin:0 auto;max-width:340px;line-height:1.55}
+  .cc-empty.err h4{color:var(--blocked)}
+</style>
+
+<div class="wrap">
+  <header class="appbar">
+    <div class="brand"><span class="bmark">◆</span> NovaManage <span style="color:var(--ink-3);font-weight:600">· Internal</span></div>
+    <nav class="appnav" role="tablist" aria-label="Sections">
+      <button class="appnav-btn active" data-view="roadmap" role="tab" type="button">🛣<span class="ab-t"> Roadmap</span></button>
+      <button class="appnav-btn" data-view="comms" role="tab" type="button">💬<span class="ab-t"> Client Communication</span> <span class="ab-badge" id="ccNavBadge" hidden>0</span></button>
+    </nav>
+    <span class="spacer"></span>
+    <button id="themeBtn" class="theme-toggle" type="button" aria-label="Toggle dark / light mode" title="Toggle dark / light mode">
+      <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+      <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+  </header>
+
+  <div id="view-roadmap" class="view">
+  <header class="top">
+    <div>
+      <p class="eyebrow"><b>NovaManage</b> · Rent Manager Automation</p>
+      <h1>The Build Road</h1>
+      <p class="sub">Utility write-back + collections · 2-developer build · tap any stage for details</p>
+    </div>
+    <div class="meter">
+      <div class="pct"><span id="pctNum">–</span><span>%</span></div>
+      <div class="ph" id="phLine"></div>
+    </div>
+  </header>
+
+  <div class="ribbon" id="ribbon"></div>
+  <button class="blockbar" id="blockbar" type="button" hidden></button>
+
+  <div class="legend">
+    <span><i class="ld done"></i> Done</span>
+    <span><i class="ld now"></i> You are here</span>
+    <span><i class="ld soon"></i> Ahead</span>
+    <span class="hint">← swipe the road →</span>
+  </div>
+
+  <div class="stage-scroll">
+    <div class="stage">
+      <svg class="road" viewBox="0 0 1200 660" role="img" aria-label="Project roadmap: a winding gray road with 7 color-coded stage markers">
+        <defs>
+          <linearGradient id="surf" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="var(--asphalt)"/>
+            <stop offset="100%" stop-color="var(--asphalt-edge)"/>
+          </linearGradient>
+          <filter id="roadshadow" x="-20%" y="-20%" width="140%" height="170%">
+            <feDropShadow dx="0" dy="16" stdDeviation="14" flood-color="#000000" flood-opacity="0.22"/>
+          </filter>
+          <filter id="pinshadow" x="-60%" y="-60%" width="220%" height="240%">
+            <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.3"/>
+          </filter>
+          <filter id="softglow" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="8"/>
+          </filter>
+        </defs>
+
+        <!-- ===== 3D road: side extrusion, then surface, then markings ===== -->
+        <!-- side / thickness -->
+        <path fill="none" stroke="var(--asphalt-side)" stroke-width="54" stroke-linecap="round" filter="url(#roadshadow)"
+          d="M 40 338 C 140 338 150 226 245 226 C 345 226 330 432 430 432 C 530 432 512 236 620 242 C 730 248 708 438 815 438 C 925 438 902 242 1012 248 C 1082 252 1120 332 1160 340"/>
+        <!-- top surface (lifted up = fake depth) -->
+        <path id="road" fill="none" stroke="url(#surf)" stroke-width="54" stroke-linecap="round"
+          d="M 40 322 C 140 322 150 210 245 210 C 345 210 330 416 430 416 C 530 416 512 220 620 226 C 730 232 708 422 815 422 C 925 422 902 226 1012 232 C 1082 236 1120 316 1160 324"/>
+        <!-- subtle top highlight -->
+        <path fill="none" stroke="#ffffff" stroke-opacity="0.10" stroke-width="54" stroke-linecap="round"
+          d="M 40 320 C 140 320 150 208 245 208 C 345 208 330 414 430 414 C 530 414 512 218 620 224 C 730 230 708 420 815 420 C 925 420 902 224 1012 230 C 1082 234 1120 314 1160 322"
+          transform="translate(0,-1.5)"/>
+        <!-- lane dashes -->
+        <path fill="none" stroke="var(--dash)" stroke-opacity="0.85" stroke-width="3.5" stroke-linecap="round"
+          stroke-dasharray="16 22"
+          d="M 40 322 C 140 322 150 210 245 210 C 345 210 330 416 430 416 C 530 416 512 220 620 226 C 730 232 708 422 815 422 C 925 422 902 226 1012 232 C 1082 236 1120 316 1160 324"/>
+
+        <g id="markers"></g>
+      </svg>
+    </div>
+  </div>
+
+  <nav class="stagenav" aria-label="Stage navigation">
+    <button id="prevBtn" class="navbtn" type="button">‹ <span class="nb-code"></span><span class="nb-t"> Prev</span></button>
+    <div class="navdots" id="navDots" role="tablist" aria-label="Jump to stage"></div>
+    <button id="nextBtn" class="navbtn" type="button"><span class="nb-t">Next </span><span class="nb-code"></span> ›</button>
+  </nav>
+
+  <div id="panel" class="panel" aria-live="polite"></div>
+
+  <footer class="foot">
+    <span>Source of truth: <code>IMPLEMENTATION-PLAN.md</code> · <code>WRITE-BACK-SPEC.md</code></span>
+    <span>Status as of 2026-07-15 · live page — updates as stages move</span>
+  </footer>
+  </div><!-- /view-roadmap -->
+
+  <div id="view-comms" class="view" hidden>
+    <header class="top" style="margin-bottom:4px">
+      <div>
+        <p class="eyebrow"><b>Client Communication</b> · Read-only</p>
+        <h1>Conversations</h1>
+        <p class="sub">WhatsApp history synced from GoHighLevel · the team's shared view — no need to open GoHighLevel</p>
+      </div>
+    </header>
+
+    <div class="cc-demobar" id="ccDemobar"></div>
+
+    <div class="cc-grid">
+      <aside class="cc-list cc-card" id="ccList" aria-label="Client conversations" style="background:transparent;border:none;box-shadow:none"></aside>
+      <section class="cc-main cc-card" id="ccMain" aria-live="polite"></section>
+      <aside class="cc-ctx" id="ccCtx" aria-label="Project context"></aside>
+    </div>
+
+    <footer class="foot">
+      <span>Read-only mirror · replies happen in GoHighLevel · <code>MockCommunicationProvider</code> (demo data)</span>
+      <span>Client messages are private — authorized internal team only</span>
+    </footer>
+  </div><!-- /view-comms -->
+</div>
+
+<script>
+// ===== theme toggle (remembers choice; defaults to system) =====
+(()=>{
+  const root=document.documentElement;
+  let saved=null; try{saved=localStorage.getItem("roadmap-theme");}catch(e){}
+  const sys=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+  root.setAttribute("data-theme", saved||root.getAttribute("data-theme")||sys);
+  document.getElementById("themeBtn").addEventListener("click",()=>{
+    const next=root.getAttribute("data-theme")==="dark"?"light":"dark";
+    root.setAttribute("data-theme",next);
+    try{localStorage.setItem("roadmap-theme",next);}catch(e){}
+  });
+})();
+
+const SVGNS="http://www.w3.org/2000/svg";
+const el=(n,a={})=>{const e=document.createElementNS(SVGNS,n);for(const k in a)e.setAttribute(k,a[k]);return e;};
+
+const stages=[
+ {step:"01",code:"SETUP",title:"Setup",full:"Onboarding & Environment",status:"done",frac:0.035,
+  owner:"You",total:6,when:"Completed Jul 15, 2026",whenShort:"DONE",
+  plain:"Getting the new computer ready and confirming the deal is real. All done.",
+  tasks:[
+   {t:"Windows machine provisioned — Node 24, pnpm, GitHub CLI",s:"done",p:"Installed the basic tools a developer needs on the new PC."},
+   {t:"Repo cloned — adminhypr/novamanage",s:"done",p:"Downloaded the project's code and documents from GitHub."},
+   {t:"RM API credentials configured & git-ignored",s:"done",p:"Saved the Rent Manager login on this machine, in a way that can never be accidentally uploaded."},
+   {t:"Docs read — PRD, Write-Back Spec, Provider Matrix, Impl. Plan",s:"done",p:"Read the full project plan and technical notes."},
+   {t:"Read-only recon vs live RM — 7 locations / 250 GLs / 71 vendors",s:"done",p:"Test login to Rent Manager worked — we can see the client's data (looking only, touching nothing)."},
+   {t:"Contract signed + deposit paid",s:"done",p:"Paperwork and payment confirmed — we're officially hired."}],
+  gate:null},
+
+ {step:"02",code:"M0",title:"Foundations",full:"Foundations & De-risking",status:"now",frac:0.185,
+  owner:"Both devs · Week 1",total:11,when:"Week 1 · Jul 14–18",whenShort:"WK 1",
+  plain:"Laying the foundation: agree on how data will be stored, prove we can safely read and write Rent Manager, and get Ari's existing bill-downloading robots running on our setup. Nothing tenant-facing happens here.",
+  tasks:[
+   {t:"Repo scaffold + core schema migrations (commit schema first)",s:"active",id:"M0-1",o:"Both · pair",n:"PR #1 open — 10 tables, tests green, awaiting review",p:"Design the project's filing cabinet: the database tables where every bill, match and action gets stored. Both developers must agree on this first so their halves fit together."},
+   {t:"RM Web API client — auth loop, GET wrappers, re-auth on 401",s:"pending",id:"M0-2",o:"Dev A",p:"Write the code that logs into Rent Manager and reads data out of it. Every later feature walks through this front door."},
+   {t:"Recon locations 14–17 → update spec table",s:"active",id:"M0-3",o:"Dev A",n:"PR #2 open — L15 invisible to API user (⚠️ Ari); GLs are per-location",p:"Rent Manager is split into 7 'drawers'. Four had never been opened — we peeked inside and listed what's there (buildings, utility companies). One drawer turned out to be empty for us — Ari needs to grant access."},
+   {t:"Rate-limit probe — 100-GET burst per location",s:"pending",id:"M0-4",o:"Dev A",p:"Find out how fast we're allowed to ask Rent Manager questions before it tells us to slow down — so the nightly runs never get cut off."},
+   {t:"First-write test — voidable bill, GET back, void path",s:"blocked",id:"M0-5",o:"Dev A·Ian·Ari",g:"Blocked — needs safe target agreed with Ari",p:"With Ari watching, create ONE tiny test bill that can be deleted right after. Proves we can safely enter bills before we ever touch the real books."},
+   {t:"Confirm redev = production vs sandbox",s:"pending",id:"M0-6",o:"Dev A",p:"Double-confirm the system we connect to is the client's real live books (all signs say yes) — which is why we treat every write with extreme care."},
+   {t:"Vendor audit — each provider × active location",s:"pending",id:"M0-7",o:"Dev A",p:"For every utility company, check it exists in every Rent Manager drawer — a bill needs somewhere to land. Missing ones: Ari creates them."},
+   {t:"Import Ari's CNG + Eversource bots onto our stack",s:"pending",id:"M0-8",o:"Dev B",p:"Take Ari's existing gas & electric bill-downloading robots and get them running on our system instead of his old setup."},
+   {t:"PDF fixture harness + golden-file parser tests",s:"pending",id:"M0-9",o:"Dev B",p:"Keep a folder of real past bills and automatic checks that prove our bill-reader reads them perfectly — so a future change can never silently break it."},
+   {t:"Secrets bootstrap + pre-commit scan hook",s:"active",id:"M0-10",o:"Both",n:"RM cred done",p:"Move all passwords into a proper vault and add a guard that blocks anyone from accidentally uploading a password with the code."},
+   {t:"Kickoff call — creds handoff, backfill + cutover decisions",s:"pending",id:"M0-11",o:"Ian",p:"The kickoff meeting: collect the remaining website logins and settle the last open decisions (e.g. do we import old bills or start fresh?)."}],
+  gate:"schema merged · RM client tested · first-write documented · both bots run on our stack · fixtures green · rate limit measured"},
+
+ {step:"03",code:"M1",title:"Shadow Pipeline",full:"Shadow Pipeline (CNG + Eversource)",status:"soon",frac:0.335,
+  owner:"Both devs",total:7,when:"Weeks 2–3 · first shadow cycle",whenShort:"WK 2–3",
+  plain:"Practice mode. The system does the entire job — downloads bills, figures out which building each one belongs to — but does NOT enter anything into Rent Manager. It writes down what it WOULD do, and we compare that against what the humans actually typed. Trust is earned here.",
+  tasks:[
+   {t:"Normalizer → staged_bills; PDFs to storage",s:"pending",o:"Dev B",p:"Turn every downloaded bill — whatever company it came from — into one standard format, and file the PDF neatly."},
+   {t:"Address-based crosswalk build + match run + review queue",s:"pending",o:"Dev A",p:"The matching brain: a utility bill says '100 Main St' — this figures out which building and meter that is in Rent Manager. The few it can't match go on a short list for a human to confirm once."},
+   {t:"Shadow poster — writes would-POST payloads, no RM writes",s:"pending",o:"Dev A",p:"The system writes down exactly what it WOULD enter into Rent Manager — without actually entering it. A dress rehearsal, every night."},
+   {t:"Shadow-diff job — our guesses vs the team's manual entries",s:"pending",o:"Both",p:"A nightly report card: our practice answers vs. the humans' real entries. When they agree 98%+, we've earned the right to go live."}],
+  gate:"a full billing cycle flows to shadow ledger untouched by hand · crosswalk coverage ≥90% · shadow-diff report exists"},
+
+ {step:"04",code:"M2",title:"Live Write-Back",full:"Live Write-Back + Reconciliation",status:"soon",frac:0.485,
+  owner:"Both devs · Ari signs off",total:5,when:"August billing cycle",whenShort:"AUG",
+  plain:"Going live — carefully. Once practice mode matches the humans 98%+, the system starts really entering bills, one utility company at a time. The day it takes over a company, the team stops typing that company's bills. Safety nets everywhere.",
+  tasks:[
+   {t:"Go-live per provider — after shadow diff ≥98%, CNG first",s:"pending",o:"Ian·Ari",p:"Flip the switch one company at a time (gas company first, since its robot is the most reliable). Ari approves each flip."},
+   {t:"Live poster + ledger + dedup-vs-RM + supersede flow",s:"pending",o:"Dev A",p:"Enter bills for real — with a logbook that guarantees no bill is ever entered twice, and a review step for corrected/revised bills instead of silently overwriting."},
+   {t:"Payment reconciliation — bank last-4 vs default bank",s:"pending",o:"Dev A",p:"Check every bill got paid from the RIGHT bank account. A mis-set autopay currently goes unnoticed — this flags it."},
+   {t:"Eversource hardening — retry, per-account isolation, DOM-drift alert",s:"pending",o:"Dev B",p:"Toughen up the fragile Eversource robot: retry when the website hiccups, and raise an alarm BEFORE bill day if the website changed shape."}],
+  gate:"one full month posting live · zero silent failures · zero duplicates · Ari signs off against the books"},
+
+ {step:"05",code:"M3",title:"Portal + AI",full:"Portal + AI Analysis",status:"soon",frac:0.635,
+  owner:"Both devs",total:3,when:"Aug–Sep",whenShort:"AUG–SEP",
+  plain:"The dashboard. A private website where the team sees every bill's journey, approves the rare items needing human judgment, and gets automatic alarms for weird bills. This replaces the Google Sheets.",
+  tasks:[
+   {t:"Private portal — pipeline, review queues, reconciliation, audit",s:"pending",o:"Dev B",p:"The team's one-stop website: see every bill's status, approve matches the system wasn't sure about, review payment mismatches, see the full history of everything."},
+   {t:"Anomaly engine — spike / leak / overcharge, seasonal baselines",s:"pending",o:"Dev A",p:"Automatic alarms: a bill much higher than that meter's usual (season-adjusted), water usage that looks like a running-toilet leak, or a rate that doesn't match sister accounts."}],
+  gate:"Ari + Tovi run their monthly utility review entirely in the portal · anomaly back-test reviewed"},
+
+ {step:"06",code:"M4",title:"Expansion",full:"Provider Expansion",status:"soon",frac:0.785,
+  owner:"Both devs · rolling",total:10,when:"Sep+ · rolling, overlaps M3",whenShort:"SEP+",
+  plain:"Adding the rest of the utility companies, one at a time, easiest first. Each follows the same recipe: build its downloader → practice mode → compare → go live.",
+  tasks:[
+   {t:"Cheapest-first: UI → MDC+Aquarion → New Britain W&S → All Waste → CWPM → All American+USA Waste",s:"pending",o:"Dev B",p:"Build a bill-downloader for each of the 7 remaining companies (electric, water, trash), starting with the ones most similar to what already works."},
+   {t:"RM-pull trio — Waterbury, RWA, Bridgeport WPCA (parse RM attachments)",s:"pending",o:"Dev A·B",p:"Three city utilities already deliver their PDF bills straight into Rent Manager — for those, we read the PDFs from there instead of scraping a website."}],
+  gate:"every provider flows (scrape or RM-pull) — or is documented-blocked with the SOW fallback invoked"},
+
+ {step:"07",code:"M5",title:"Collections",full:"Phase 2 — Collections + Legal",status:"soon",frac:0.945,
+  owner:"On client go",total:5,when:"Starts on client go (after P1)",whenShort:"CLIENT GO",
+  plain:"Phase 2: automating the late-rent process. Today it's all tracked by hand in a spreadsheet — late fees, reminder calls, legal notices, court dates. The system will run that timeline. Only the phone calls are fully automatic; every legal step waits for a human.",
+  tasks:[
+   {t:"Delinquency engine — timeline rules, Section 8 split, re-allocation",s:"pending",o:"Dev A",p:"The timeline brain: rent due the 1st, late fee the 11th, calls the 10th–15th, notices by the 15th — it tracks where every late tenant is in that process, automatically."},
+   {t:"Autonomous AI collections calls — disclosures + escape hatch",s:"pending",o:"Dev A",n:"after TCPA/CT check",p:"The AI makes the payment-reminder calls itself. Every call announces it's recorded and always offers a path to a human. A legal compliance check happens before the first real call."},
+   {t:"Notice-to-Quit generation + marshal serve tracking",s:"pending",o:"Dev B",p:"Prepare the formal legal notices for the team to review and hand-sign (never auto-sent), then track the marshal's delivery of each one."},
+   {t:"CT Judicial court-portal eviction tracker (new external build)",s:"pending",o:"Dev B",p:"Watch the Connecticut court website for each eviction case and raise a flag when a filing is late or the attorney missed something — replacing manual case-by-case checking."}],
+  gate:"starts only on the client's go — and not before Ian's TCPA / CT call-recording check"}
+];
+
+const colorFor={done:"var(--done)",now:"var(--now)",soon:"var(--soon)"};
+const road=document.getElementById("road");
+const L=road.getTotalLength();
+const gMarkers=document.getElementById("markers");
+
+stages.forEach((st,i)=>{
+  const pt=road.getPointAtLength(L*st.frac);
+  const up=(i%2===0);
+  const bandY=up?116:566;
+  const g=el("g",{class:"marker",role:"button",tabindex:"0"});
+  g.setAttribute("aria-label",`${st.code}: ${st.full} — ${st.status==="done"?"done":st.status==="now"?"in progress":"upcoming"}`);
+  const c=colorFor[st.status];
+
+  // stem from road to label
+  const stemEnd=up?bandY+26:bandY-26;
+  g.appendChild(el("line",{x1:pt.x,y1:pt.y,x2:pt.x,y2:stemEnd,stroke:"var(--line-strong)","stroke-width":"2","stroke-dasharray":"1 5","stroke-linecap":"round"}));
+
+  // ==== label group (modern pill) — sized to measured text in a 2nd pass ====
+  const lbl=el("g",{class:"lblgrp"});
+  const h=56, ly=bandY;
+  const rect=el("rect",{y:ly-h/2,height:h,rx:14,fill:"var(--surface)",stroke:"var(--line)","stroke-width":"1",filter:"url(#pinshadow)"});
+  lbl.appendChild(rect);
+  const sdot=el("circle",{cy:ly,r:"6.5",fill:c});
+  lbl.appendChild(sdot);
+  const eye=el("text",{y:ly-6,"font-family":"var(--mono)","font-size":"10","font-weight":"700",fill:"var(--ink-3)","letter-spacing":".1em"});
+  eye.textContent=`STEP ${st.step} — ${st.code}${st.whenShort?` · ${st.whenShort}`:""}`; lbl.appendChild(eye);
+  const tt=el("text",{y:ly+13,"font-size":"14","font-weight":"700",fill:"var(--ink)","font-family":"var(--sans)"});
+  tt.textContent=st.full; lbl.appendChild(tt);
+  g.appendChild(lbl);
+  st._lbl={rect,sdot,eye,tt,px:pt.x};
+
+  // ==== selection halo on the road dot ====
+  g.appendChild(el("circle",{class:"halo",cx:pt.x,cy:pt.y,r:"28",fill:"none",stroke:c,"stroke-width":"2.5","stroke-opacity":".95"}));
+
+  // ==== the stage dot ON the road — the only color on the road ====
+  if(st.status==="done"){
+    g.appendChild(el("circle",{cx:pt.x,cy:pt.y,r:"17",fill:"var(--done)",filter:"url(#pinshadow)"}));
+    g.appendChild(el("circle",{cx:pt.x,cy:pt.y,r:"17",fill:"none",stroke:"#ffffff","stroke-opacity":".95","stroke-width":"2.5"}));
+    g.appendChild(el("path",{d:`M ${pt.x-6.5} ${pt.y+0.5} l 4.2 4.2 l 8.3 -8.3`,fill:"none",stroke:"#fff","stroke-width":"3","stroke-linecap":"round","stroke-linejoin":"round"}));
+  } else if(st.status==="now"){
+    g.appendChild(el("circle",{cx:pt.x,cy:pt.y,r:"30",fill:"var(--now)","fill-opacity":".25",filter:"url(#softglow)"}));
+    g.appendChild(el("circle",{class:"ping",cx:pt.x,cy:pt.y,r:"17",fill:"none",stroke:"var(--now)","stroke-width":"3"}));
+    g.appendChild(el("circle",{class:"nowcore",cx:pt.x,cy:pt.y,r:"15",fill:"var(--now)",filter:"url(#pinshadow)"}));
+    g.appendChild(el("circle",{cx:pt.x,cy:pt.y,r:"15",fill:"none",stroke:"#ffffff","stroke-opacity":".95","stroke-width":"2.5"}));
+    g.appendChild(el("circle",{cx:pt.x,cy:pt.y,r:"5",fill:"#fff"}));
+    // car flipped to face right (emoji renders facing left by default)
+    const carG=el("g",{transform:`translate(${2*pt.x} 0) scale(-1 1)`});
+    const car=el("text",{class:"car",x:pt.x,y:pt.y-32,"text-anchor":"middle","font-size":"26"});
+    car.textContent="🚗"; carG.appendChild(car); g.appendChild(carG);
+  } else {
+    g.appendChild(el("circle",{cx:pt.x,cy:pt.y,r:"15",fill:"var(--soon)",filter:"url(#pinshadow)"}));
+    g.appendChild(el("circle",{cx:pt.x,cy:pt.y,r:"15",fill:"none",stroke:"#ffffff","stroke-opacity":".9","stroke-width":"2.5"}));
+    const num=el("text",{x:pt.x,y:pt.y+4.5,"text-anchor":"middle","font-size":"12.5","font-weight":"800",fill:"#ffffff","font-family":"var(--sans)"});
+    num.textContent=st.step; g.appendChild(num);
+  }
+
+  const pick=()=>select(i);
+  g.addEventListener("click",pick);
+  g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();pick();}});
+  st._g=g;
+  gMarkers.appendChild(g);
+});
+
+// 2nd pass: size each label pill from its actual rendered text (no overflow, no guesswork)
+stages.forEach(st=>{
+  const {rect,sdot,eye,tt,px}=st._lbl;
+  const inner=Math.max(tt.getComputedTextLength(),eye.getComputedTextLength());
+  const padL=40, padR=20;
+  const w=Math.ceil(inner)+padL+padR;
+  const lx=Math.min(Math.max(px,w/2+8),1200-w/2-8);
+  rect.setAttribute("x",lx-w/2); rect.setAttribute("width",w);
+  sdot.setAttribute("cx",lx-w/2+22);
+  eye.setAttribute("x",lx-w/2+padL);
+  tt.setAttribute("x",lx-w/2+padL);
+});
+
+// ===== stage navigation (prev / next / dot strip / arrow keys) =====
+const prevBtn=document.getElementById("prevBtn"), nextBtn=document.getElementById("nextBtn");
+const navDots=document.getElementById("navDots");
+let cur=0;
+stages.forEach((st,i)=>{
+  const d=document.createElement("button");
+  d.className=`navdot ${st.status}`; d.type="button"; d.setAttribute("role","tab");
+  d.setAttribute("aria-label",`${st.code}: ${st.full}`); d.title=`${st.code} — ${st.title}`;
+  d.addEventListener("click",()=>select(i));
+  navDots.appendChild(d); st._nd=d;
+});
+prevBtn.addEventListener("click",()=>{ if(cur>0) select(cur-1); });
+nextBtn.addEventListener("click",()=>{ if(cur<stages.length-1) select(cur+1); });
+document.addEventListener("keydown",e=>{
+  if(e.target instanceof Element && e.target.closest("input,textarea,button"))return;
+  if(e.key==="ArrowLeft"&&cur>0){e.preventDefault();select(cur-1);}
+  if(e.key==="ArrowRight"&&cur<stages.length-1){e.preventDefault();select(cur+1);}
+});
+function syncNav(){
+  prevBtn.disabled=(cur===0); nextBtn.disabled=(cur===stages.length-1);
+  prevBtn.querySelector(".nb-code").textContent=cur>0?stages[cur-1].code:"";
+  nextBtn.querySelector(".nb-code").textContent=cur<stages.length-1?stages[cur+1].code:"";
+  stages.forEach((s,j)=>s._nd.classList.toggle("cur",j===cur));
+  // keep the selected stage visible on narrow screens
+  const sc=document.querySelector(".stage-scroll");
+  if(sc.scrollWidth>sc.clientWidth){
+    const target=stages[cur]._lbl.px/1200*sc.scrollWidth - sc.clientWidth/2;
+    sc.scrollTo({left:Math.max(0,target),behavior:"smooth"});
+  }
+}
+
+const panel=document.getElementById("panel");
+function select(i){
+  cur=i;
+  stages.forEach(s=>s._g.classList.remove("sel"));
+  stages[i]._g.classList.add("sel");
+  syncNav();
+  const st=stages[i];
+  try{history.replaceState(null,"","#"+st.code.toLowerCase());}catch(e){}
+  const sc=st.status;
+  const doneN=st.tasks.filter(t=>t.s==="done").length;
+  const pct=Math.round(doneN/st.total*100);
+  const pillTxt=sc==="done"?"Complete":sc==="now"?"In progress":"Upcoming";
+  const rows=st.tasks.map(t=>{
+    const mark=t.s==="done"?"✓":t.s==="blocked"?"!":"";
+    const meta=[t.id?`<span class="chip tid">${t.id}</span>`:"",t.o?`<span class="chip owner">${t.o}</span>`:"",t.n?`<span class="chip">${t.n}</span>`:""].join("");
+    const gmsg=t.g?`<div class="gmsg">${t.g}</div>`:"";
+    const plain=t.p?`<div class="tp">${t.p}</div>`:"";
+    return `<li class="task ${t.s}"><span class="tick">${mark}</span><div class="tbody"><div class="tt">${t.t}</div>${plain}${meta?`<div class="tmeta">${meta}</div>`:""}${gmsg}</div></li>`;
+  }).join("");
+  panel.innerHTML=`
+    <div class="p-head">
+      <span class="p-code ${sc}">${st.code}</span>
+      <h2>${st.full}</h2>
+      <span class="p-pill ${sc}">${pillTxt}</span>
+    </div>
+    <div class="p-sub">
+      <span>Owner: <b>${st.owner}</b></span>
+      <span>Window: <b>${st.when}</b></span>
+      <span class="p-prog"><span>${doneN}/${st.total} tasks</span>
+        <span class="pbar"><i style="width:${Math.max(pct,sc==='now'?6:pct)}%;background:${colorFor[sc]}"></i></span>
+        <span>${pct}%</span></span>
+    </div>
+    ${st.plain?`<div class="p-plain"><b>In plain English:</b> ${st.plain}</div>`:""}
+    <ul class="tasks">${rows}</ul>
+    ${st.gate?`<div class="p-exit"><b>Exit gate:</b> ${st.gate}</div>`:""}
+  `;
+}
+// ===== changelog / last-updated ribbon (newest first) =====
+const CHANGELOG=[
+ {d:"Jul 15, 2026",t:"✅ Live GoHighLevel sync PROVEN — pulled Ari's real WhatsApp conversation (12 messages) read-only from the PM Automations AI sub-account. The Client Communication integration is no longer a placeholder for the read path. Real conversation viewable locally & privately (never published); webhook/real-time path still to verify."},
+ {d:"Jul 15, 2026",t:"Opened 3 PRs for Ian to review: #1 workspace scaffold + schema (M0-1), #2 recon of locations 14–17 (M0-3), #3 Client Communication read-only WhatsApp mirror. All branches pushed to GitHub."},
+ {d:"Jul 15, 2026",t:"New section: Client Communication — a read-only view of client WhatsApp conversations synced from GoHighLevel (demo data for now). Includes conversation list, AI summary, internal labels, project context, and sync/empty states. You cannot send, reply, edit or delete from here — replies stay in GoHighLevel."},
+ {d:"Jul 15, 2026",t:"Added plain-English explanations to every stage and task (requested by Ian) — each milestone now has an 'In plain English' summary and every task a one-line translation."},
+ {d:"Jul 15, 2026",t:"Dev started. M0-3 recon of locations 14–17 done: L14 (5 props) & L17 (31 props) fully provisioned, GL IDs proven location-scoped, L15 invisible to the API user (⚠️ raise with Ari). M0-1 drafted: pnpm workspace + full §3.3 schema (10 tables) as Drizzle migrations, 5 contract tests green. Both on local branches awaiting push + review."},
+ {d:"Jul 15, 2026",t:"Auto-sync enabled — a scheduled agent pulls the repo nightly at 7 PM and republishes this page; it also updates live during dev sessions. No manual syncing needed."},
+ {d:"Jul 15, 2026",t:"Roadmap upgraded: click-only selection, prev/next + dot navigation, dark/light toggle, auto progress, stage dates, blocker banner, deep links."},
+ {d:"Jul 15, 2026",t:"Setup stage complete — machine provisioned, repo cloned, creds configured, read-only recon verified against live RM (7 locations / 250 GLs / 71 vendors). SOW signed + deposit paid."},
+ {d:"Jul 14, 2026",t:"Migrated engagement to the Windows machine; docs folder cleaned; roadmap page created."}
+];
+document.getElementById("ribbon").innerHTML=
+  `<span><b>Last updated ${CHANGELOG[0].d}</b> — ${CHANGELOG[0].t}</span>
+   <span class="rb-actions">
+     <span class="syncbadge" title="A scheduled agent pulls the repo every night at 7 PM and republishes this page. It's also updated live during dev sessions."><span class="pulse"></span>Auto-syncs nightly</span>
+     <details><summary>History ▾</summary><ul>${CHANGELOG.map(c=>`<li><b>${c.d}</b> — ${c.t}</li>`).join("")}</ul></details>
+   </span>`;
+
+// ===== auto-computed overall progress =====
+const totDone=stages.reduce((a,s)=>a+s.tasks.filter(t=>t.s==="done").length,0);
+const totAll=stages.reduce((a,s)=>a+s.total,0);
+document.getElementById("pctNum").textContent=Math.round(100*totDone/totAll);
+const nowIdx=Math.max(0,stages.findIndex(s=>s.status==="now"));
+document.getElementById("phLine").innerHTML=
+  `${totDone}/${totAll} tasks · Stage ${nowIdx+1} of ${stages.length} · <b style="color:var(--now)">${stages[nowIdx].code} in progress</b>`;
+
+// ===== blocker banner (auto-derived from tasks marked blocked) =====
+(()=>{
+  const blocks=[];
+  stages.forEach((s,i)=>s.tasks.forEach(t=>{if(t.s==="blocked")blocks.push({i,s,t});}));
+  const bar=document.getElementById("blockbar");
+  if(!blocks.length){bar.hidden=true;return;}
+  const b=blocks[0];
+  bar.hidden=false;
+  bar.innerHTML=`<b>⛔ ${blocks.length} blocker${blocks.length>1?"s":""} gating progress</b>
+    <span>${b.t.id?b.t.id+" — ":""}${b.t.t}. ${b.t.g||""} <u>View stage</u></span>`;
+  bar.addEventListener("click",()=>{select(b.i);document.getElementById("panel").scrollIntoView({behavior:"smooth",block:"start"});});
+})();
+
+// ===== deep links: #setup #m0 #m1 … #comms =====
+(()=>{
+  const hash=(location.hash||"").replace("#","").toLowerCase();
+  window.__wantComms=(hash==="comms");
+  let idx=stages.findIndex(s=>s.code.toLowerCase()===hash);
+  if(idx<0)idx=stages.findIndex(s=>s.status==="now");
+  select(idx<0?0:idx);
+})();
+
+/* ======================================================================
+   CLIENT COMMUNICATION — read-only WhatsApp-via-GoHighLevel viewer
+   Phase 1: full UI on simulated data (MockCommunicationProvider).
+   No send/reply/edit/delete. All state changes here are INTERNAL only
+   (reviewed flags, roadmap links) — they never touch GoHighLevel.
+   ====================================================================== */
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const TODAY="2026-07-15";
+
+// ----- internal communication labels (metadata only; never alter the message) -----
+const CC_LAB={
+  action:{t:"Action Required",c:"blocked"}, waiting:{t:"Waiting for Client",c:"soon"},
+  approved:{t:"Client Approved",c:"done"}, followup:{t:"Internal Follow-Up",c:"brand"},
+  decision:{t:"Decision Made",c:"now"}, file:{t:"File Received",c:"done"},
+  deadline:{t:"Deadline Mentioned",c:"soon"}, revision:{t:"Revision Requested",c:"blocked"},
+  concern:{t:"Concern Raised",c:"blocked"}, info:{t:"Information Only",c:"muted"},
+};
+const LAB_STYLE={blocked:"color:var(--blocked);background:var(--blocked-soft)",soon:"color:var(--soon-2);background:var(--soon-soft)",
+  done:"color:var(--done-2);background:var(--done-soft)",brand:"color:var(--brand);background:var(--brand-soft)",
+  now:"color:var(--now-2);background:var(--now-soft)",muted:"color:var(--ink-3);background:var(--surface-2)"};
+const labChip=k=>CC_LAB[k]?`<span class="cc-lab" style="${LAB_STYLE[CC_LAB[k].c]}">${esc(CC_LAB[k].t)}</span>`:"";
+
+// ----- simulated GoHighLevel WhatsApp data (MockCommunicationProvider stand-in) -----
+const CC_PROJECTS=[
+ {id:"nova",client:"Ari Braun",company:"Nova Realty Management LLC",project:"Rent Manager Automation",
+  contactId:"ghl_ct_9f2a41",conversationId:"ghl_conv_7734",color:"var(--brand)",linked:true,actionReq:true,
+  sync:"demo",lastSync:"2 min ago",
+  msgs:[
+   {id:"m1",ext:"ghl_msg_5510",dir:"in",sender:"Ari Braun",time:"2026-07-14T09:12:00",type:"text",
+    body:"Morning! Sending over a sample Eversource bill so you can see the PDF format we get each month.",labels:["info"]},
+   {id:"m2",ext:"ghl_msg_5511",dir:"in",sender:"Ari Braun",time:"2026-07-14T09:13:00",type:"document",
+    body:"",att:[{kind:"document",name:"Eversource_July_bill.pdf",size:"248 KB"}],labels:["file"]},
+   {id:"m3",ext:"ghl_msg_5514",dir:"out",sender:"Rafael (PM Automations)",time:"2026-07-14T09:41:00",type:"text",
+    status:"read",body:"Got it, thanks. This is exactly what we needed — the account number is in the header, that's the key we match on."},
+   {id:"m4",ext:"ghl_msg_5520",dir:"in",sender:"Ari Braun",time:"2026-07-14T10:02:00",type:"image",
+    body:"Here's the property list in Rent Manager for reference.",att:[{kind:"image",name:"rentmanager_props.png"}],labels:["info"]},
+   {id:"m5",ext:"ghl_msg_5533",dir:"out",sender:"Rafael (PM Automations)",time:"2026-07-14T14:20:00",type:"text",status:"read",
+    body:"Quick question before we run anything: which property is safe to use for a throwaway test bill? We want one we can void immediately.",labels:["waiting"]},
+   {id:"m6",ext:"ghl_msg_5540",dir:"in",sender:"Ari Braun",time:"2026-07-14T16:47:00",type:"audio",
+    body:"",att:[{kind:"audio",name:"Voice message",size:"0:38"}],labels:["info"]},
+   {id:"m7",ext:"ghl_msg_5541",dir:"in",sender:"Ari Braun",time:"2026-07-14T16:49:00",type:"text",
+    body:"Use \"test property telebroad\" — PropertyID 27. Go ahead and do the void-test bill there, I'll watch for it and confirm.",
+    labels:["approved","decision"],links:["M0"]},
+   {id:"m8",ext:"ghl_msg_5560",dir:"in",sender:"Ari Braun",time:"2026-07-15T08:30:00",type:"text",
+    body:"One thing — we'd like the utilities piece live before July 30 if possible, that's when the next billing cycle closes.",
+    labels:["deadline","action"]},
+   {id:"m9",ext:"ghl_msg_5562",dir:"out",sender:"Rafael (PM Automations)",time:"2026-07-15T08:52:00",type:"text",status:"delivered",
+    body:"Understood. I'll confirm a realistic date after the test-write with you this week. Sharing our live roadmap here:",att:[{kind:"link",name:"NovaManage Build Road",url:"the roadmap"}],labels:["followup"]},
+   {id:"m10",ext:"ghl_msg_5563",dir:"in",sender:"Ari Braun",time:"2026-07-15T09:05:00",type:"unsupported",
+    body:"",att:[{kind:"unsupported",name:"Contact card"}]},
+  ],
+  summary:{
+   latestRequest:"Get the utilities automation live before the July 30 billing cycle close.",
+   decisions:["Use \"test property telebroad\" (PropertyID 27) for the void-test bill","Match bills on the account number in the PDF header"],
+   openQuestions:["What's a realistic go-live date after the test write?"],
+   approvals:["Test-write on Property 27 — approved by Ari"],
+   followups:["Confirm go-live date with Ari this week"],
+   deadlines:["Utilities live before July 30 (next billing cycle)"],
+   files:["Eversource_July_bill.pdf — received","rentmanager_props.png — received"],
+   status:"Waiting on our go-live estimate",
+  }},
+ {id:"bright",client:"Dana Cole",company:"Brightline Property Group",project:"Owner Portal Redesign",
+  contactId:"ghl_ct_31b8",conversationId:"ghl_conv_8890",color:"#8b5cf6",linked:false,actionReq:false,
+  sync:"demo",lastSync:"11 min ago",
+  msgs:[
+   {id:"b1",ext:"ghl_msg_9001",dir:"out",sender:"Maya (PM Automations)",time:"2026-07-13T11:00:00",type:"text",status:"read",
+    body:"Hi Dana — first draft of the owner portal is ready for review. Link coming in the next message.",labels:["info"]},
+   {id:"b2",ext:"ghl_msg_9002",dir:"out",sender:"Maya (PM Automations)",time:"2026-07-13T11:01:00",type:"text",status:"read",
+    body:"Here's the preview — let us know your thoughts on the dashboard layout.",att:[{kind:"link",name:"Portal preview"}],labels:["waiting"]},
+   {id:"b3",ext:"ghl_msg_9010",dir:"in",sender:"Dana Cole",time:"2026-07-14T15:22:00",type:"text",
+    body:"Looks great overall! Can we make the rent-collected number bigger and move payments to the top?",labels:["revision"]},
+   {id:"b4",ext:"ghl_msg_9014",dir:"out",sender:"Maya (PM Automations)",time:"2026-07-14T15:40:00",type:"text",status:"read",
+    body:"Absolutely — we'll bump the KPI and reorder. Should have an updated version by Thursday.",labels:["followup","deadline"]},
+  ],
+  summary:{latestRequest:"Enlarge the rent-collected KPI and move payments to the top of the dashboard.",
+   decisions:["Reorder dashboard: payments first"],openQuestions:[],approvals:[],
+   followups:["Ship revised portal by Thursday"],deadlines:["Updated version by Thursday"],
+   files:[],status:"Revision in progress"}},
+ {id:"harbor",client:"Miguel Santos",company:"Harbor Point Rentals",project:"Tenant Onboarding Automation",
+  contactId:"ghl_ct_77c0",conversationId:"ghl_conv_4521",color:"#0ea5a3",linked:false,actionReq:false,
+  sync:"demo",lastSync:"just now",
+  msgs:[
+   {id:"h1",ext:"ghl_msg_3300",dir:"out",sender:"Rafael (PM Automations)",time:"2026-07-12T10:15:00",type:"text",status:"read",
+    body:"Hi Miguel — the tenant welcome flow is built. Ready to turn it on whenever you approve.",labels:["waiting"]},
+   {id:"h2",ext:"ghl_msg_3305",dir:"in",sender:"Miguel Santos",time:"2026-07-12T13:40:00",type:"text",
+    body:"Approved — go ahead and switch it on. Looks perfect.",labels:["approved","decision"]},
+   {id:"h3",ext:"ghl_msg_3308",dir:"out",sender:"Rafael (PM Automations)",time:"2026-07-12T13:55:00",type:"text",status:"read",
+    body:"Live now 🎉 New tenants will get the welcome sequence automatically.",labels:["info"]},
+  ],
+  summary:{latestRequest:"Turn on the tenant welcome flow.",decisions:["Welcome flow approved & live"],
+   openQuestions:[],approvals:["Welcome flow — approved by Miguel"],followups:[],deadlines:[],
+   files:[],status:"Approved & live"}},
+ {id:"cedar",client:"Priya Nair",company:"Cedar & Oak Realty",project:"Discovery / Scoping",
+  contactId:null,conversationId:null,color:"#d97706",linked:false,actionReq:false,
+  sync:"no-contact",lastSync:"—",msgs:[],summary:null},
+];
+
+// ----- state (internal only) -----
+const CC={sel:CC_PROJECTS[0].id,search:"",filter:"all",sim:"",syncState:"demo",lastSync:"2 min ago",shownOlder:{}};
+
+const initials=n=>n.split(/\s+/).slice(0,2).map(w=>w[0]||"").join("").toUpperCase();
+const fmtTime=iso=>{const d=new Date(iso);let h=d.getHours(),m=d.getMinutes();const ap=h<12?"AM":"PM";h=h%12||12;return `${h}:${String(m).padStart(2,"0")} ${ap}`;};
+const dayKey=iso=>iso.slice(0,10);
+const fmtDay=k=>{const t=TODAY;const y=new Date(new Date(t).getTime()-864e5).toISOString().slice(0,10);
+  if(k===t)return "Today";if(k===y)return "Yesterday";
+  return new Date(k+"T12:00:00").toLocaleDateString(undefined,{weekday:"short",month:"short",day:"numeric"});};
+const proj=id=>CC_PROJECTS.find(p=>p.id===id);
+const unread=p=>p.msgs.filter(m=>m.dir==="in"&&!m._reviewed).length;
+
+// ----- attachments -----
+function attHtml(a){
+  if(!a)return "";
+  if(a.kind==="image")return `<div class="cc-att img"><div class="cc-imgph">🖼️ ${esc(a.name||"photo")}</div></div>`;
+  if(a.kind==="document")return `<div class="cc-att"><span class="ai">📄</span><span><span class="an">${esc(a.name)}</span><br><span class="as">${esc(a.size||"document")} · PDF</span></span></div>`;
+  if(a.kind==="audio")return `<div class="cc-att"><span class="ai">▶️</span><span><span class="an">Voice message</span><br><span class="as">${esc(a.size||"audio")} · playback in GoHighLevel</span></span></div>`;
+  if(a.kind==="link")return `<div class="cc-att"><span class="ai">🔗</span><span><span class="an cc-link">${esc(a.name)}</span><br><span class="as">shared link</span></span></div>`;
+  return `<div class="cc-att"><span class="ai">❔</span><span class="cc-unsup">Unsupported message type${a.name?` — ${esc(a.name)}`:""} (view in GoHighLevel)</span></div>`;
+}
+
+// ----- empty / error states -----
+const CC_STATES={
+  none:{i:"💬",h:"Select a conversation",p:"Choose a client on the left to open their read-only WhatsApp history."},
+  "no-connection":{i:"🔌",h:"Not connected to GoHighLevel",p:"No integration token is configured on the server yet. Running in demo mode with sample data until credentials are added.",err:true},
+  "no-contact":{i:"🔍",h:"No GoHighLevel contact mapped",p:"This project isn't linked to a GoHighLevel contact ID yet, so there's no conversation to sync. Map a contact to connect it."},
+  "no-conversation":{i:"🗨️",h:"No conversation found",p:"This contact exists in GoHighLevel but has no conversation yet."},
+  "no-messages":{i:"📭",h:"No WhatsApp messages yet",p:"There are no WhatsApp messages in this conversation. Messages from other channels are hidden in this view."},
+  auth:{i:"🔐",h:"Authentication required",p:"The GoHighLevel token was rejected or has expired. Re-authorize the integration on the server to resume syncing.",err:true},
+  api:{i:"⚠️",h:"Couldn't reach GoHighLevel",p:"The last sync request failed. We'll retry on the next scheduled sync — showing the last messages we have.",err:true},
+  rate:{i:"⏳",h:"Rate limit reached",p:"GoHighLevel is temporarily throttling requests. Syncing pauses and resumes automatically.",err:true},
+  webhook:{i:"📡",h:"Webhook not configured",p:"Real-time updates aren't set up for this location. Falling back to scheduled sync every few minutes."},
+  partial:{i:"◐",h:"Sync partially completed",p:"Some older messages couldn't be retrieved this time. Showing everything that synced successfully."},
+};
+const emptyState=k=>{const s=CC_STATES[k]||CC_STATES.none;return `<div class="cc-empty${s.err?" err":""}"><div class="em-ico">${s.i}</div><h4>${esc(s.h)}</h4><p>${esc(s.p)}</p></div>`;};
+
+// ----- renderers -----
+function ccDemobar(){
+  const stMap={demo:["","Demo Mode","Showing simulated GoHighLevel WhatsApp conversations"],
+    ok:["ok","Connected to GoHighLevel","live sync"],busy:["busy","Sync in progress…",""],err:["err","Sync failed",""]};
+  const cur=CC.syncState==="busy"?stMap.busy:CC.syncState==="err"?stMap.err:stMap.demo;
+  const opts=[["","— live conversation —"],["no-connection","No connection"],["no-contact","No contact mapped"],
+    ["no-conversation","No conversation"],["no-messages","No WhatsApp messages"],["auth","Auth required"],
+    ["api","API failure"],["rate","Rate limit"],["webhook","Webhook not configured"],["partial","Partial sync"]];
+  document.getElementById("ccDemobar").innerHTML=`
+    <span class="cc-syncstate"><span class="cc-syncdot ${cur[0]}"></span><b>${esc(cur[1])}</b></span>
+    <span style="color:var(--ink-3)">${esc(cur[2])}</span>
+    <span class="cc-tag" style="margin:0"><span class="cc-syncmini"><i></i></span> Webhook: not configured · scheduled sync fallback</span>
+    <span class="spacer"></span>
+    <span style="font-size:11.5px;color:var(--ink-3)">Last sync: <b style="color:var(--ink-2)">${esc(CC.lastSync)}</b></span>
+    <label class="cc-simlink" style="text-decoration:none">Preview states:
+      <select id="ccSim" class="cc-simlink" style="text-decoration:none;color:var(--brand)">
+        ${opts.map(([v,l])=>`<option value="${v}"${v===CC.sim?" selected":""}>${l}</option>`).join("")}
+      </select></label>
+    <button class="cc-syncbtn" id="ccSyncBtn"${CC.syncState==="busy"?" disabled":""}>⟳ Sync Now</button>`;
+  document.getElementById("ccSyncBtn").onclick=ccSyncNow;
+  document.getElementById("ccSim").onchange=e=>{CC.sim=e.target.value;ccMain();};
+}
+function ccSyncNow(){
+  CC.syncState="busy";ccDemobar();
+  setTimeout(()=>{CC.syncState="demo";CC.lastSync="just now";ccDemobar();
+    const b=document.getElementById("ccSyncBtn");if(b){b.textContent="✓ Synced (simulated)";setTimeout(()=>ccDemobar(),1600);}},1300);
+}
+
+function ccList(){
+  let items=CC_PROJECTS.slice();
+  const q=CC.search.toLowerCase();
+  if(q)items=items.filter(p=>(p.client+p.company+p.project).toLowerCase().includes(q));
+  if(CC.filter==="unreviewed")items=items.filter(p=>unread(p)>0);
+  if(CC.filter==="action")items=items.filter(p=>p.actionReq);
+  items.sort((a,b)=>{const la=a.msgs.length?a.msgs[a.msgs.length-1].time:"";const lb=b.msgs.length?b.msgs[b.msgs.length-1].time:"";return lb.localeCompare(la);});
+  const chips=[["all","All"],["unreviewed","Unreviewed"],["action","Action required"]];
+  const rows=items.map(p=>{
+    const last=p.msgs[p.msgs.length-1];
+    const prev=last?(last.body||(last.att&&last.att[0]?"["+last.att[0].kind+"]":"")):"No messages yet";
+    const u=unread(p);
+    return `<button class="cc-convo${p.id===CC.sel?" sel":""}" data-id="${p.id}">
+      <span class="cc-ava" style="background:${p.color}">${esc(initials(p.client))}</span>
+      <span class="cc-cbody">
+        <span class="cc-crow"><span class="cc-cname">${esc(p.client)}</span><span class="cc-ctime">${last?fmtTime(last.time):""}</span></span>
+        <span class="cc-cco">${esc(p.company)} · ${esc(p.project)}</span>
+        <span class="cc-cprev">${esc(prev)}</span>
+        <span class="cc-cmeta">
+          <span class="cc-badge wa">✆ WhatsApp</span><span class="cc-badge ghl">GHL</span>
+          ${p.actionReq?'<span class="cc-actreq" title="Action required"></span>':""}
+          ${u?`<span class="cc-unread">${u}</span>`:""}
+          <span class="cc-syncmini">${p.sync==="no-contact"?"⚠ not mapped":'<i></i> synced'}</span>
+        </span>
+      </span></button>`;
+  }).join("")||`<div style="padding:20px;text-align:center;color:var(--ink-3);font-size:13px">No conversations match.</div>`;
+  document.getElementById("ccList").innerHTML=`
+    <input class="cc-search" id="ccSearch" placeholder="Search client, company, project…" value="${esc(CC.search)}">
+    <div class="cc-filters">${chips.map(([v,l])=>`<button class="cc-fchip${CC.filter===v?" on":""}" data-f="${v}">${l}</button>`).join("")}</div>
+    <div class="cc-convos">${rows}</div>`;
+  const s=document.getElementById("ccSearch");
+  s.oninput=e=>{CC.search=e.target.value;const pos=e.target.selectionStart;ccList();const n=document.getElementById("ccSearch");n.focus();n.setSelectionRange(pos,pos);};
+  document.querySelectorAll("#ccList .cc-fchip").forEach(b=>b.onclick=()=>{CC.filter=b.dataset.f;ccList();});
+  document.querySelectorAll("#ccList .cc-convo").forEach(b=>b.onclick=()=>{CC.sel=b.dataset.id;CC.sim="";ccList();ccMain();ccCtx();});
+}
+
+function ccMain(){
+  const main=document.getElementById("ccMain");
+  const p=proj(CC.sel);
+  if(CC.sim){main.innerHTML=emptyState(CC.sim);return;}
+  if(!p){main.innerHTML=emptyState("none");return;}
+  if(p.sync==="no-contact"){main.innerHTML=convHead(p)+emptyState("no-contact");return;}
+  if(!p.msgs.length){main.innerHTML=convHead(p)+emptyState("no-messages");return;}
+  // group by day
+  const groups=[];let ck="";
+  p.msgs.forEach(m=>{const k=dayKey(m.time);if(k!==ck){groups.push({day:k,items:[]});ck=k;}groups[groups.length-1].items.push(m);});
+  const stageOpts=stages.map(s=>`<option value="${s.code}">${s.code} · ${esc(s.title)}</option>`).join("");
+  const thread=groups.map(g=>`<div class="cc-daysep">${fmtDay(g.day)}</div>`+g.items.map(m=>{
+    const labels=(m.labels||[]).map(labChip).join("");
+    const links=(m._links||m.links||[]).map(c=>`<span class="cc-lab" style="${LAB_STYLE.now}">🔗 ${esc(c)}</span>`).join("");
+    const atts=(m.att||[]).map(attHtml).join("");
+    const body=m.body?`<div>${esc(m.body)}</div>`:"";
+    const stat=m.dir==="out"&&m.status?`<span class="stat">${m.status==="read"?"✓✓ read":m.status==="delivered"?"✓✓":"✓"}</span>`:"";
+    return `<div class="cc-msg ${m.dir==="out"?"out":"in"}" tabindex="0">
+      <div class="cc-sender">${esc(m.sender)}</div>
+      <div class="cc-bubble">${body}${atts}</div>
+      ${(labels||links)?`<div class="cc-labels">${labels}${links}</div>`:""}
+      <div class="cc-bmeta"><span>${fmtTime(m.time)}</span>${stat}</div>
+      <div class="cc-actions">
+        <button class="cc-mbtn${m._reviewed?" done":""}" data-rev="${m.id}">${m._reviewed?"✓ Reviewed":"○ Mark reviewed"}</button>
+        <span class="cc-mbtn">🔗 Link: <select data-link="${m.id}"><option value="">roadmap…</option>${stageOpts}</select></span>
+      </div>
+    </div>`;
+  }).join("")).join("");
+  main.innerHTML=convHead(p)+ccSummary(p)+`
+    <div class="cc-readonly">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Read-only communication history synced from WhatsApp through GoHighLevel. Replies must be sent from GoHighLevel.
+    </div>
+    <div class="cc-thread">
+      <button class="cc-loadmore">↑ Load older messages</button>
+      ${thread}
+    </div>`;
+  // wire internal-only actions
+  main.querySelectorAll("[data-rev]").forEach(b=>b.onclick=()=>{const m=p.msgs.find(x=>x.id===b.dataset.rev);m._reviewed=!m._reviewed;ccList();ccMain();ccBadge();});
+  main.querySelectorAll("[data-link]").forEach(sel=>sel.onchange=()=>{const m=p.msgs.find(x=>x.id===sel.dataset.link);if(!sel.value)return;m._links=m._links||(m.links?m.links.slice():[]);if(!m._links.includes(sel.value))m._links.push(sel.value);ccMain();});
+  main.querySelector(".cc-loadmore").onclick=e=>{e.target.textContent="✓ All messages loaded (demo)";e.target.disabled=true;};
+}
+function convHead(p){
+  return `<div class="cc-conv-head">
+    <span class="cc-ava" style="background:${p.color}">${esc(initials(p.client))}</span>
+    <div style="flex:1;min-width:0">
+      <div class="cc-ch-name">${esc(p.client)}</div>
+      <div class="cc-ch-sub"><span>${esc(p.company)}</span>·<span>${esc(p.project)}</span></div>
+    </div>
+    <div class="cc-ch-badges">
+      <span><span class="cc-badge wa">✆ WhatsApp</span> <span class="cc-badge ghl">GoHighLevel</span></span>
+      <span class="cc-lastsync">Last sync: ${esc(p.lastSync)}</span>
+    </div></div>`;
+}
+function ccSummary(p){
+  if(!p.summary)return "";
+  const s=p.summary;
+  const list=arr=>arr&&arr.length?`<ul>${arr.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:'<span style="color:var(--ink-3)">—</span>';
+  const item=(k,v)=>`<div class="cc-sumitem"><div class="k">${k}</div><div class="v">${v}</div></div>`;
+  return `<details class="cc-summary" open>
+    <summary>✨ Communication summary <span class="ai-tag">AI-generated summary based on synced messages</span></summary>
+    <div class="cc-sumgrid">
+      ${item("Latest client request",esc(s.latestRequest||"—"))}
+      ${item("Current status",esc(s.status||"—"))}
+      ${item("Key decisions",list(s.decisions))}
+      ${item("Open questions",list(s.openQuestions))}
+      ${item("Approvals needed / given",list(s.approvals))}
+      ${item("Internal follow-ups",list(s.followups))}
+      ${item("Deadlines mentioned",list(s.deadlines))}
+      ${item("Files requested / received",list(s.files))}
+      <div class="cc-sumnote">AI-generated from the synced messages above. Not a client message — verify against the original conversation before acting.</div>
+    </div></details>`;
+}
+
+function ccCtx(){
+  const box=document.getElementById("ccCtx");
+  const p=proj(CC.sel);
+  if(!p){box.innerHTML="";return;}
+  let phase,prog,upcoming,recent,blocked,approvals,related;
+  if(p.linked){ // Nova Realty → pull live from the roadmap
+    const doneT=stages.reduce((a,s)=>a+s.tasks.filter(t=>t.s==="done").length,0);
+    const allT=stages.reduce((a,s)=>a+s.total,0);
+    prog=Math.round(100*doneT/allT);
+    const now=stages.find(s=>s.status==="now");
+    phase=`${now.code} · ${now.title}`;
+    const ni=stages.indexOf(now);
+    upcoming=stages[ni+1]?`${stages[ni+1].code} · ${stages[ni+1].title}`:"—";
+    recent=stages[ni-1]?`${stages[ni-1].code} · ${stages[ni-1].title}`:"—";
+    const blk=[];stages.forEach(s=>s.tasks.forEach(t=>{if(t.s==="blocked")blk.push(t.id||t.t);}));
+    blocked=blk;approvals=["Test-write on Property 27 (given)"];
+    related=[now.code,upcoming.split(" ")[0]];
+  }else{
+    phase=p.id==="bright"?"Design · Revision":p.id==="harbor"?"Live":"Discovery";
+    prog=p.id==="bright"?55:p.id==="harbor"?100:5;
+    upcoming=p.id==="bright"?"Client review":p.id==="harbor"?"Post-launch check":"Proposal";
+    recent=p.id==="bright"?"First draft delivered":p.id==="harbor"?"Go-live":"Intro call";
+    blocked=[];approvals=p.id==="harbor"?["Welcome flow (given)"]:[];related=[];
+  }
+  const team=p.linked?[["R","Rafael","var(--brand)"],["I","Ian","#0ea5a3"],["A","Ari (client)","var(--soon)"]]:
+    p.id==="bright"?[["M","Maya","#8b5cf6"],["D","Dana (client)","var(--soon)"]]:[["R","Rafael","var(--brand)"],["M","Miguel (client)","var(--soon)"]];
+  const files=p.linked?["Eversource_July_bill.pdf","rentmanager_props.png"]:p.id==="bright"?["portal-preview-v1"]:[];
+  box.innerHTML=`
+    <div class="cc-card">
+      <h3>Project context</h3>
+      <div class="cc-ctxrow"><span class="k">Current phase</span><span class="v">${esc(phase)}</span></div>
+      <div style="padding:9px 0 4px"><div class="cc-ctxrow" style="border:none;padding:0 0 4px"><span class="k">Overall progress</span><span class="v">${prog}%</span></div>
+        <div class="cc-ctxprog"><i style="width:${prog}%"></i></div></div>
+      <div class="cc-ctxrow"><span class="k">Upcoming milestone</span><span class="v">${esc(upcoming)}</span></div>
+      <div class="cc-ctxrow"><span class="k">Recently completed</span><span class="v">${esc(recent)}</span></div>
+      ${p.linked?`<div style="margin-top:10px"><a href="#${(related[0]||'m0').toLowerCase()}" class="cc-syncbtn" style="text-decoration:none" id="ccToRoadmap">↗ Open in roadmap</a></div>`:""}
+    </div>
+    ${blocked.length?`<div class="cc-card"><h3>Blocked items</h3>${blocked.map(b=>`<span class="cc-tag warn">⛔ ${esc(b)}</span>`).join("")}</div>`:""}
+    ${approvals.length?`<div class="cc-card"><h3>Pending / given approvals</h3>${approvals.map(a=>`<span class="cc-tag appr">✔ ${esc(a)}</span>`).join("")}</div>`:""}
+    <div class="cc-card"><h3>Internal team</h3><div class="cc-team">${team.map(([ini,nm,cl])=>`<span class="cc-teammate"><i style="background:${cl}">${ini}</i>${esc(nm)}</span>`).join("")}</div></div>
+    ${files.length?`<div class="cc-card"><h3>Project files</h3>${files.map(f=>`<span class="cc-filelink"><b>📎</b> ${esc(f)}</span>`).join("")}</div>`:""}
+    <div class="cc-card"><h3>Link a message to the roadmap</h3><div style="font-size:12px;color:var(--ink-3);line-height:1.5">Hover any message and use <b style="color:var(--ink-2)">🔗 Link</b> to connect it to a phase, milestone, approval or blocker. Stored internally — never changes the GoHighLevel message.</div></div>`;
+  const link=document.getElementById("ccToRoadmap");
+  if(link)link.onclick=e=>{e.preventDefault();showView("roadmap");const idx=stages.findIndex(s=>s.status==="now");if(idx>=0)select(idx);};
+}
+
+function ccBadge(){
+  const total=CC_PROJECTS.reduce((a,p)=>a+unread(p),0);
+  const b=document.getElementById("ccNavBadge");
+  if(total>0){b.hidden=false;b.textContent=total;}else b.hidden=true;
+}
+function ccRenderAll(){ccDemobar();ccList();ccMain();ccCtx();ccBadge();}
+
+// ----- view switching -----
+const VIEWS={roadmap:document.getElementById("view-roadmap"),comms:document.getElementById("view-comms")};
+let ccInit=false;
+function showView(v){
+  for(const k in VIEWS)VIEWS[k].hidden=(k!==v);
+  document.querySelectorAll(".appnav-btn").forEach(b=>b.classList.toggle("active",b.dataset.view===v));
+  if(v==="comms"){if(!ccInit){ccRenderAll();ccInit=true;}try{history.replaceState(null,"","#comms");}catch(e){}}
+  else{try{history.replaceState(null,"","#"+stages[cur].code.toLowerCase());}catch(e){}}
+  window.scrollTo({top:0,behavior:"instant"in window?"instant":"auto"});
+}
+document.querySelectorAll(".appnav-btn").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
+ccBadge();
+if(window.__wantComms)showView("comms");
+</script>
