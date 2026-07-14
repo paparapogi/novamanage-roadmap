@@ -529,9 +529,9 @@ const stages=[
   owner:"Team · Week 1",total:11,when:"Week 1 · Jul 14–18",whenShort:"WK 1",
   plain:"Laying the foundation: agree on how data will be stored, prove we can safely read and write Rent Manager, and get Ari's existing bill-downloading robots running on our setup. Nothing tenant-facing happens here.",
   tasks:[
-   {t:"Repo scaffold + core schema migrations (commit schema first)",s:"active",id:"M0-1",o:"Team · pair",n:"PR #1 open — 10 tables, tests green, awaiting review",p:"Design the project's filing cabinet: the database tables where every bill, match and action gets stored. Both developers must agree on this first so their halves fit together."},
+   {t:"Repo scaffold + core schema migrations (commit schema first)",s:"done",id:"M0-1",o:"Team · pair",n:"merged to main (PR #1) — 10 tables, tests green",p:"Design the project's filing cabinet: the database tables where every bill, match and action gets stored. Both developers must agree on this first so their halves fit together."},
    {t:"RM Web API client — auth loop, GET wrappers, re-auth on 401",s:"pending",id:"M0-2",o:"Dev team",p:"Write the code that logs into Rent Manager and reads data out of it. Every later feature walks through this front door."},
-   {t:"Recon locations 14–17 → update spec table",s:"active",id:"M0-3",o:"Dev team",n:"PR #2 open — L15 invisible to API user (⚠️ Ari); GLs are per-location",p:"Rent Manager is split into 7 'drawers'. Four had never been opened — we peeked inside and listed what's there (buildings, utility companies). One drawer turned out to be empty for us — Ari needs to grant access."},
+   {t:"Recon locations 14–17 → update spec table",s:"done",id:"M0-3",o:"Dev team",n:"merged to main (PR #2) — L15 invisible to API user (⚠️ Ari); GLs are per-location",p:"Rent Manager is split into 7 'drawers'. Four had never been opened — we peeked inside and listed what's there (buildings, utility companies). One drawer turned out to be empty for us — Ari needs to grant access."},
    {t:"Rate-limit probe — 100-GET burst per location",s:"pending",id:"M0-4",o:"Dev team",p:"Find out how fast we're allowed to ask Rent Manager questions before it tells us to slow down — so the nightly runs never get cut off."},
    {t:"First-write test — voidable bill, GET back, void path",s:"blocked",id:"M0-5",o:"Dev team · Ian · Ari",g:"Blocked — needs safe target agreed with Ari",p:"With Ari watching, create ONE tiny test bill that can be deleted right after. Proves we can safely enter bills before we ever touch the real books."},
    {t:"Confirm redev = production vs sandbox",s:"pending",id:"M0-6",o:"Dev team",p:"Double-confirm the system we connect to is the client's real live books (all signs say yes) — which is why we treat every write with extreme care."},
@@ -735,6 +735,7 @@ function select(i){
 }
 // ===== changelog / last-updated ribbon (newest first) =====
 const CHANGELOG=[
+ {d:"Jul 15, 2026",t:"Progress: PRs #1 (schema), #2 (recon), #3 (Client Communication) all merged to main. M0-1 and M0-3 are now DONE. Also proved live GoHighLevel sync (read pull + real-time webhook connectivity). SMS follow-up is in PR #5."},
  {d:"Jul 15, 2026",t:"Client Communication now covers WhatsApp + SMS (not WhatsApp only) — each message shows its channel, and the sync/filters include both."},
  {d:"Jul 15, 2026",t:"Task owners now read \"Dev team\" (Rap + Ivan) instead of individual names — the build is shared across the team."},
  {d:"Jul 15, 2026",t:"Added a Client View tab (a friendly, client-safe progress page + 'what we need from you' for Ari), scoped Client Communication to Ari only, and relabelled owners to real roles (Ian · management, Rap · client comms, Ivan · backend)."},
