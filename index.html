@@ -294,6 +294,9 @@
   .cc-msg.out .cc-sender{color:var(--done-2)}
   .cc-bmeta{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--ink-3);margin:0 4px}
   .cc-bmeta .stat{color:var(--now-2)}
+  .cc-ch{font-size:9px;font-weight:750;letter-spacing:.02em;padding:1px 5px;border-radius:4px}
+  .cc-ch.wa{color:#128c4b;background:#128c4b22}
+  .cc-ch.sms{color:var(--brand);background:var(--brand-soft)}
   .cc-att{margin-top:7px;display:flex;align-items:center;gap:9px;padding:8px 10px;background:var(--surface-2);
     border:1px solid var(--line);border-radius:10px;font-size:12px;color:var(--ink-2)}
   .cc-att .ai{width:30px;height:30px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;font-size:15px;
@@ -469,7 +472,7 @@
       <div>
         <p class="eyebrow"><b>Client Communication</b> · Read-only</p>
         <h1>Conversations</h1>
-        <p class="sub">WhatsApp history synced from GoHighLevel · the team's shared view — no need to open GoHighLevel</p>
+        <p class="sub">WhatsApp &amp; SMS history synced from GoHighLevel · the team's shared view — no need to open GoHighLevel</p>
       </div>
     </header>
 
@@ -732,6 +735,7 @@ function select(i){
 }
 // ===== changelog / last-updated ribbon (newest first) =====
 const CHANGELOG=[
+ {d:"Jul 15, 2026",t:"Client Communication now covers WhatsApp + SMS (not WhatsApp only) — each message shows its channel, and the sync/filters include both."},
  {d:"Jul 15, 2026",t:"Task owners now read \"Dev team\" (Rap + Ivan) instead of individual names — the build is shared across the team."},
  {d:"Jul 15, 2026",t:"Added a Client View tab (a friendly, client-safe progress page + 'what we need from you' for Ari), scoped Client Communication to Ari only, and relabelled owners to real roles (Ian · management, Rap · client comms, Ivan · backend)."},
  {d:"Jul 15, 2026",t:"✅ Live GoHighLevel sync PROVEN — pulled Ari's real WhatsApp conversation (12 messages) read-only from the PM Automations AI sub-account. The Client Communication integration is no longer a placeholder for the read path. Real conversation viewable locally & privately (never published); webhook/real-time path still to verify."},
@@ -825,7 +829,7 @@ const CC_PROJECTS=[
    {id:"m7",ext:"ghl_msg_5541",dir:"in",sender:"Ari Braun",time:"2026-07-14T16:49:00",type:"text",
     body:"Use \"test property telebroad\" — PropertyID 27. Go ahead and do the void-test bill there, I'll watch for it and confirm.",
     labels:["approved","decision"],links:["M0"]},
-   {id:"m8",ext:"ghl_msg_5560",dir:"in",sender:"Ari Braun",time:"2026-07-15T08:30:00",type:"text",
+   {id:"m8",ext:"ghl_msg_5560",dir:"in",sender:"Ari Braun",time:"2026-07-15T08:30:00",type:"text",ch:"sms",
     body:"One thing — we'd like the utilities piece live before July 30 if possible, that's when the next billing cycle closes.",
     labels:["deadline","action"]},
    {id:"m9",ext:"ghl_msg_5562",dir:"out",sender:"Rafael (PM Automations)",time:"2026-07-15T08:52:00",type:"text",status:"delivered",
@@ -963,11 +967,12 @@ function ccMain(){
     const atts=(m.att||[]).map(attHtml).join("");
     const body=m.body?`<div>${esc(m.body)}</div>`:"";
     const stat=m.dir==="out"&&m.status?`<span class="stat">${m.status==="read"?"✓✓ read":m.status==="delivered"?"✓✓":"✓"}</span>`:"";
+    const chan=(m.ch==="sms")?`<span class="cc-ch sms">SMS</span>`:`<span class="cc-ch wa">WhatsApp</span>`;
     return `<div class="cc-msg ${m.dir==="out"?"out":"in"}" tabindex="0">
       <div class="cc-sender">${esc(m.sender)}</div>
       <div class="cc-bubble">${body}${atts}</div>
       ${(labels||links)?`<div class="cc-labels">${labels}${links}</div>`:""}
-      <div class="cc-bmeta"><span>${fmtTime(m.time)}</span>${stat}</div>
+      <div class="cc-bmeta">${chan}<span>${fmtTime(m.time)}</span>${stat}</div>
       <div class="cc-actions">
         <button class="cc-mbtn${m._reviewed?" done":""}" data-rev="${m.id}">${m._reviewed?"✓ Reviewed":"○ Mark reviewed"}</button>
         <span class="cc-mbtn">🔗 Link: <select data-link="${m.id}"><option value="">roadmap…</option>${stageOpts}</select></span>
@@ -977,7 +982,7 @@ function ccMain(){
   main.innerHTML=convHead(p)+ccSummary(p)+`
     <div class="cc-readonly">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-      Read-only communication history synced from WhatsApp through GoHighLevel. Replies must be sent from GoHighLevel.
+      Read-only communication history synced from WhatsApp &amp; SMS through GoHighLevel. Replies must be sent from GoHighLevel.
     </div>
     <div class="cc-thread">
       <button class="cc-loadmore">↑ Load older messages</button>
@@ -996,7 +1001,7 @@ function convHead(p){
       <div class="cc-ch-sub"><span>${esc(p.company)}</span>·<span>${esc(p.project)}</span></div>
     </div>
     <div class="cc-ch-badges">
-      <span><span class="cc-badge wa">✆ WhatsApp</span> <span class="cc-badge ghl">GoHighLevel</span></span>
+      <span><span class="cc-badge wa">✆ WhatsApp + SMS</span> <span class="cc-badge ghl">GoHighLevel</span></span>
       <span class="cc-lastsync">Last sync: ${esc(p.lastSync)}</span>
     </div></div>`;
 }
