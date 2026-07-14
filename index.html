@@ -526,7 +526,7 @@ const stages=[
   gate:null},
 
  {step:"02",code:"M0",title:"Foundations",full:"Foundations & De-risking",status:"now",frac:0.185,
-  owner:"Team · Week 1",total:11,when:"Week 1 · Jul 14–18",whenShort:"WK 1",
+  owner:"Team · Week 1",total:10,when:"Week 1 · Jul 14–18",whenShort:"WK 1",
   plain:"Laying the foundation: agree on how data will be stored, prove we can safely read and write Rent Manager, and get Ari's existing bill-downloading robots running on our setup. Nothing tenant-facing happens here.",
   tasks:[
    {t:"Repo scaffold + core schema migrations (commit schema first)",s:"done",id:"M0-1",o:"Team · pair",n:"merged to main (PR #1) — 10 tables, tests green",p:"Design the project's filing cabinet: the database tables where every bill, match and action gets stored. Both developers must agree on this first so their halves fit together."},
@@ -538,8 +538,7 @@ const stages=[
    {t:"Vendor audit — each provider × active location",s:"pending",id:"M0-7",o:"Dev team",p:"For every utility company, check it exists in every Rent Manager drawer — a bill needs somewhere to land. Missing ones: Ari creates them."},
    {t:"Import Ari's CNG + Eversource bots onto our stack",s:"pending",id:"M0-8",o:"Dev team",p:"Take Ari's existing gas & electric bill-downloading robots and get them running on our system instead of his old setup."},
    {t:"PDF fixture harness + golden-file parser tests",s:"pending",id:"M0-9",o:"Dev team",p:"Keep a folder of real past bills and automatic checks that prove our bill-reader reads them perfectly — so a future change can never silently break it."},
-   {t:"Secrets bootstrap + pre-commit scan hook",s:"active",id:"M0-10",o:"Team",n:"RM cred done",p:"Move all passwords into a proper vault and add a guard that blocks anyone from accidentally uploading a password with the code."},
-   {t:"Kickoff call — creds handoff, backfill + cutover decisions",s:"pending",id:"M0-11",o:"Ian",p:"The kickoff meeting: collect the remaining website logins and settle the last open decisions (e.g. do we import old bills or start fresh?)."}],
+   {t:"Secrets bootstrap + pre-commit scan hook",s:"active",id:"M0-10",o:"Team",n:"RM cred done",p:"Move all passwords into a proper vault and add a guard that blocks anyone from accidentally uploading a password with the code."}],
   gate:"schema merged · RM client tested · first-write documented · both bots run on our stack · fixtures green · rate limit measured"},
 
  {step:"03",code:"M1",title:"Shadow Pipeline",full:"Shadow Pipeline (CNG + Eversource)",status:"soon",frac:0.335,
