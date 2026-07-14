@@ -373,6 +373,14 @@
   .cv-ask-w{font-size:12.5px;color:var(--ink-2);margin-top:3px;line-height:1.5}
   .cv-foot{text-align:center;font-size:12.5px;color:var(--ink-3);margin-top:26px;padding-top:16px;border-top:1px solid var(--line)}
   @media(max-width:560px){.cv-hero{flex-direction:column;align-items:flex-start}.cv-herotext{border-left:none;padding-left:0;border-top:1px solid var(--line);padding-top:14px}}
+  .cc-portal{padding:46px 28px;text-align:center}
+  .cc-portal-ico{font-size:34px;margin-bottom:12px}
+  .cc-portal h3{font-size:16px;margin:0 0 8px;font-weight:750}
+  .cc-portal p{font-size:13px;color:var(--ink-2);max-width:430px;margin:0 auto 8px;line-height:1.6}
+  .cc-portal-feats{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin:16px auto 4px;max-width:440px}
+  .cc-portal-feats span{font-size:11.5px;font-weight:650;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);border-radius:99px;padding:5px 12px}
+  .cc-portal-note{font-size:12px;color:var(--ink-3);margin-top:14px}
+  .cc-portal-note b{color:var(--done-2)}
 </style>
 
 <div class="wrap">
@@ -734,6 +742,7 @@ function select(i){
 }
 // ===== changelog / last-updated ribbon (newest first) =====
 const CHANGELOG=[
+ {d:"Jul 15, 2026",t:"Client Communication tab no longer shows a simulated conversation on this public page — real client messages stay in the secure team portal (behind sign-in). The public page shows the feature + verified status only, so it's safe to share for progress tracking."},
  {d:"Jul 15, 2026",t:"✅ Client Communication real-time webhook VERIFIED end-to-end — captured two real messages from Ari (WhatsApp) with the security token and message body both coming through. Both the read pull AND the live webhook now work; scheduled pull remains the fallback."},
  {d:"Jul 15, 2026",t:"Progress: PRs #1 (schema), #2 (recon), #3 (Client Communication) all merged to main. M0-1 and M0-3 are now DONE. Also proved live GoHighLevel sync (read pull + real-time webhook connectivity). SMS follow-up is in PR #5."},
  {d:"Jul 15, 2026",t:"Client Communication now covers WhatsApp + SMS (not WhatsApp only) — each message shows its channel, and the sync/filters include both."},
@@ -852,6 +861,9 @@ const CC_PROJECTS=[
 
 // ----- state (internal only) -----
 const CC={sel:CC_PROJECTS[0].id,search:"",filter:"all",sim:"",syncState:"demo",lastSync:"2 min ago",shownOlder:{}};
+// Public page: real client conversations stay behind the secure portal login (PII).
+// This gates the demo thread. The authenticated M3 portal sets this false to show live data.
+const CC_PUBLIC=true;
 
 const initials=n=>n.split(/\s+/).slice(0,2).map(w=>w[0]||"").join("").toUpperCase();
 const fmtTime=iso=>{const d=new Date(iso);let h=d.getHours(),m=d.getMinutes();const ap=h<12?"AM":"PM";h=h%12||12;return `${h}:${String(m).padStart(2,"0")} ${ap}`;};
@@ -889,6 +901,14 @@ const emptyState=k=>{const s=CC_STATES[k]||CC_STATES.none;return `<div class="cc
 
 // ----- renderers -----
 function ccDemobar(){
+  if(CC_PUBLIC){
+    document.getElementById("ccDemobar").innerHTML=`
+      <span class="cc-syncstate"><span class="cc-syncdot ok"></span><b>Live view is in the secure team portal</b></span>
+      <span style="color:var(--ink-3)">This public page tracks progress · conversations open behind sign-in</span>
+      <span class="spacer"></span>
+      <span class="cc-tag" style="margin:0;color:var(--done-2);background:var(--done-soft);border-color:transparent">✓ Integration verified — read pull + real-time webhook</span>`;
+    return;
+  }
   const stMap={demo:["","Demo Mode","Showing simulated GoHighLevel WhatsApp conversations"],
     ok:["ok","Connected to GoHighLevel","live sync"],busy:["busy","Sync in progress…",""],err:["err","Sync failed",""]};
   const cur=CC.syncState==="busy"?stMap.busy:CC.syncState==="err"?stMap.err:stMap.demo;
@@ -925,17 +945,17 @@ function ccList(){
   const chips=[["all","All"],["unreviewed","Unreviewed"],["action","Action required"]];
   const rows=items.map(p=>{
     const last=p.msgs[p.msgs.length-1];
-    const prev=last?(last.body||(last.att&&last.att[0]?"["+last.att[0].kind+"]":"")):"No messages yet";
-    const u=unread(p);
+    const prev=CC_PUBLIC?"🔒 Opens in the secure team portal":(last?(last.body||(last.att&&last.att[0]?"["+last.att[0].kind+"]":"")):"No messages yet");
+    const u=CC_PUBLIC?0:unread(p);
     return `<button class="cc-convo${p.id===CC.sel?" sel":""}" data-id="${p.id}">
       <span class="cc-ava" style="background:${p.color}">${esc(initials(p.client))}</span>
       <span class="cc-cbody">
-        <span class="cc-crow"><span class="cc-cname">${esc(p.client)}</span><span class="cc-ctime">${last?fmtTime(last.time):""}</span></span>
+        <span class="cc-crow"><span class="cc-cname">${esc(p.client)}</span><span class="cc-ctime">${(!CC_PUBLIC&&last)?fmtTime(last.time):""}</span></span>
         <span class="cc-cco">${esc(p.company)} · ${esc(p.project)}</span>
         <span class="cc-cprev">${esc(prev)}</span>
         <span class="cc-cmeta">
-          <span class="cc-badge wa">✆ WhatsApp</span><span class="cc-badge ghl">GHL</span>
-          ${p.actionReq?'<span class="cc-actreq" title="Action required"></span>':""}
+          <span class="cc-badge wa">✆ WhatsApp · SMS</span><span class="cc-badge ghl">GHL</span>
+          ${(!CC_PUBLIC&&p.actionReq)?'<span class="cc-actreq" title="Action required"></span>':""}
           ${u?`<span class="cc-unread">${u}</span>`:""}
           <span class="cc-syncmini">${p.sync==="no-contact"?"⚠ not mapped":'<i></i> synced'}</span>
         </span>
@@ -951,11 +971,21 @@ function ccList(){
   document.querySelectorAll("#ccList .cc-convo").forEach(b=>b.onclick=()=>{CC.sel=b.dataset.id;CC.sim="";ccList();ccMain();ccCtx();});
 }
 
+function ccPortalState(){
+  return `<div class="cc-portal">
+    <div class="cc-portal-ico">🔒</div>
+    <h3>Live conversation opens in the secure team portal</h3>
+    <p>To keep client messages private, the real read-only WhatsApp &amp; SMS history isn't shown on this public page — it opens in the team portal (sign-in required). The layout below is the feature; the content lives behind the login.</p>
+    <div class="cc-portal-feats"><span>Read-only thread</span><span>WhatsApp + SMS</span><span>AI summary</span><span>Internal labels</span><span>Linked to roadmap</span></div>
+    <p class="cc-portal-note"><b>Integration verified</b> — the read pull and the real-time webhook both work against the live GoHighLevel account.</p>
+  </div>`;
+}
 function ccMain(){
   const main=document.getElementById("ccMain");
   const p=proj(CC.sel);
   if(CC.sim){main.innerHTML=emptyState(CC.sim);return;}
   if(!p){main.innerHTML=emptyState("none");return;}
+  if(CC_PUBLIC){main.innerHTML=convHead(p)+ccPortalState();return;}
   if(p.sync==="no-contact"){main.innerHTML=convHead(p)+emptyState("no-contact");return;}
   if(!p.msgs.length){main.innerHTML=convHead(p)+emptyState("no-messages");return;}
   // group by day
@@ -1003,7 +1033,7 @@ function convHead(p){
     </div>
     <div class="cc-ch-badges">
       <span><span class="cc-badge wa">✆ WhatsApp + SMS</span> <span class="cc-badge ghl">GoHighLevel</span></span>
-      <span class="cc-lastsync">Last sync: ${esc(p.lastSync)}</span>
+      <span class="cc-lastsync">${CC_PUBLIC?"🔒 Opens in the secure portal":"Last sync: "+esc(p.lastSync)}</span>
     </div></div>`;
 }
 function ccSummary(p){
@@ -1073,7 +1103,7 @@ function ccCtx(){
 }
 
 function ccBadge(){
-  const total=CC_PROJECTS.reduce((a,p)=>a+unread(p),0);
+  const total=CC_PUBLIC?0:CC_PROJECTS.reduce((a,p)=>a+unread(p),0);
   const b=document.getElementById("ccNavBadge");
   if(total>0){b.hidden=false;b.textContent=total;}else b.hidden=true;
 }
