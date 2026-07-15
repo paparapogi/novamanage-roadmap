@@ -546,7 +546,7 @@ const stages=[
    {t:"Vendor audit — each provider × active location",s:"pending",id:"M0-7",o:"Dev team",p:"For every utility company, check it exists in every Rent Manager drawer — a bill needs somewhere to land. Missing ones: Ari creates them."},
    {t:"Import Ari's CNG + Eversource bots onto our stack",s:"pending",id:"M0-8",o:"Dev team",p:"Take Ari's existing gas & electric bill-downloading robots and get them running on our system instead of his old setup."},
    {t:"PDF fixture harness + golden-file parser tests",s:"pending",id:"M0-9",o:"Dev team",p:"Keep a folder of real past bills and automatic checks that prove our bill-reader reads them perfectly — so a future change can never silently break it."},
-   {t:"Secrets bootstrap + pre-commit scan hook",s:"active",id:"M0-10",o:"Team",n:"RM cred done",p:"Move all passwords into a proper vault and add a guard that blocks anyone from accidentally uploading a password with the code."}],
+   {t:"Secrets bootstrap + pre-commit scan hook",s:"active",id:"M0-10",o:"Team",n:"RM + CNG/Eversource logins received and stored locally (git-ignored); Doppler vault + pre-commit scan still to do",p:"Move all passwords into a proper vault and add a guard that blocks anyone from accidentally uploading a password with the code."}],
   gate:"schema merged · RM client tested · first-write documented · both bots run on our stack · fixtures green · rate limit measured"},
 
  {step:"03",code:"M1",title:"Shadow Pipeline",full:"Shadow Pipeline (CNG + Eversource)",status:"soon",frac:0.335,
@@ -742,6 +742,7 @@ function select(i){
 }
 // ===== changelog / last-updated ribbon (newest first) =====
 const CHANGELOG=[
+ {d:"Jul 15, 2026",t:"Ari sent the CNG + Eversource logins, so phase-1 bill pulling is unblocked. Two useful things came with it: 2FA only affects MDC and Aquarion (which share a single login), not CNG/Eversource — so that whole piece shrinks from an architecture problem to one edge case. And Ari asked that adding future locations stays easy, which is already how it's built: locations are configuration, and the vendor, GL account and bank are all looked up at runtime rather than hard-coded."},
  {d:"Jul 15, 2026",t:"Scope confirmed by Ari: we build for 3 locations, not 7. In scope are Nova South, Carriage-Regency and SBM Portfolio (~45 properties). The client no longer manages the two Hartford locations, and Garden drops off in August. Bonus: the Location 15 item we'd been chasing was never a blocker — that location is simply out of scope, so it's off Ari's list."},
  {d:"Jul 15, 2026",t:"🎉 M0-5 PASSED — the first write into Rent Manager is proven. Posted a $1 test bill to Ari's test property, read it back, and deleted it cleanly. This closes the single biggest unknown of the project. Bonus: bills post in ONE call (no second call needed) and deleting works via the API (no manual void). The blocker turned out to be one undocumented field (AccountType), found by comparing against a bill Ari posted by hand — thanks Ari!"},
  {d:"Jul 15, 2026",t:"Ran the M0-5 first-write test: the RM write path WORKS (auth, POST, payload format all good — even nailed a null-field quirk). The $1 test bill only bounced because Ari's throwaway test property is a bare shell RM won't post to (a real unit takes the same bill fine). Findings documented; need a billing-ready test target from Ari."},
@@ -1121,7 +1122,7 @@ const CLIENT_PHASE={SETUP:"Getting set up",M0:"Building the foundation",M1:"Test
 const CLIENT_ASKS=[
  {t:"Confirm the system we connect to is your live Rent Manager",why:"Everything points to yes — a quick final confirm just lets us set our safety rules correctly before any real writes.",when:"week"},
  {t:"Rotate the Rent Manager password when convenient",why:"The current one is on the weaker side and has moved through email/chat. Worth refreshing once things are stable.",when:"soon"},
- {t:"Utility portal logins (as we add each company)",why:"For the other providers — United Illuminating, MDC, Aquarion, New Britain W&S, All Waste, CWPM, USA Waste — shared securely when we reach each one.",when:"later"},
+ {t:"Utility portal logins for the remaining providers",why:"CNG and Eversource are in, thank you. We'll need the rest as we reach each one (United Illuminating, MDC, Aquarion, New Britain W&S, All Waste, CWPM, USA Waste). No rush, and we'll sort out the 2FA on MDC/Aquarion when we get there.",when:"later"},
  {t:"A ~30-minute meter-mapping walkthrough",why:"For electric & gas we match each account to a specific meter. We'll auto-match most; a short call clears the handful we can't.",when:"later"},
  {t:"Confirm Waterbury / RWA / Bridgeport bills arrive in Rent Manager as PDFs",why:"Those three we read straight from Rent Manager instead of a website — we just need to confirm they land there each quarter.",when:"later"},
 ];
