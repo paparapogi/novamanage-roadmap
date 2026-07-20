@@ -381,6 +381,52 @@
   .cc-portal-feats span{font-size:11.5px;font-weight:650;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);border-radius:99px;padding:5px 12px}
   .cc-portal-note{font-size:12px;color:var(--ink-3);margin-top:14px}
   .cc-portal-note b{color:var(--done-2)}
+
+  /* ===== Library ===== */
+  .lib-wrap{max-width:1080px;margin:0 auto;padding:22px 18px 70px}
+  .lib-head h2{font-size:22px;font-weight:750;letter-spacing:-.02em;margin:0 0 5px}
+  .lib-head p{font-size:13.5px;color:var(--ink-2);margin:0;max-width:66ch;line-height:1.55}
+  .lib-note{display:flex;gap:9px;align-items:flex-start;margin:16px 0 24px;padding:11px 13px;
+    background:var(--soon-soft);border:1px solid var(--soon);border-radius:10px;font-size:12.5px;color:var(--ink-2);line-height:1.5}
+  .lib-note b{color:var(--ink)}
+  .lib-sec{margin-top:26px}
+  .lib-sec>h3{font-size:12px;font-weight:750;text-transform:uppercase;letter-spacing:.09em;
+    color:var(--ink-3);margin:0 0 10px;display:flex;align-items:center;gap:8px}
+  .lib-sec>h3::after{content:"";flex:1;height:1px;background:var(--line)}
+  .lib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:10px}
+  .lib-card{display:block;text-decoration:none;color:inherit;background:var(--surface);
+    border:1px solid var(--line);border-radius:11px;padding:13px 14px;transition:border-color .15s,transform .15s,box-shadow .15s}
+  a.lib-card:hover{border-color:var(--brand);transform:translateY(-1px);box-shadow:var(--shadow)}
+  .lib-card .lc-top{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+  .lib-card .lc-ico{font-size:15px;line-height:1}
+  .lib-card .lc-name{font-size:13.5px;font-weight:680;letter-spacing:-.01em}
+  .lib-card .lc-desc{font-size:12px;color:var(--ink-2);line-height:1.5;margin:0}
+  .lib-card .lc-url{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);margin-top:7px;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .lib-tag{font-size:9.5px;font-weight:750;text-transform:uppercase;letter-spacing:.05em;
+    padding:2px 6px;border-radius:5px;margin-left:auto;white-space:nowrap}
+  .lib-tag.priv{background:var(--blocked-soft);color:var(--blocked)}
+  .lib-tag.pub{background:var(--done-soft);color:var(--done-2)}
+  .lib-tag.soon{background:var(--soon-soft);color:var(--soon-2)}
+  /* credential inventory */
+  .lib-tbl{width:100%;border-collapse:collapse;font-size:12.5px;
+    border:1px solid var(--line);border-radius:11px;overflow:hidden}
+  .lib-tbl th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;
+    color:var(--ink-3);font-weight:700;padding:9px 11px;background:var(--surface-2);border-bottom:1px solid var(--line)}
+  .lib-tbl td{padding:9px 11px;border-bottom:1px solid var(--line);color:var(--ink-2);vertical-align:top}
+  .lib-tbl tr:last-child td{border-bottom:0}
+  .lib-tbl td b{color:var(--ink);font-weight:650}
+  .lib-yes{color:var(--done-2);font-weight:650}
+  .lib-no{color:var(--blocked);font-weight:650}
+  .lib-cta{display:inline-flex;align-items:center;gap:7px;margin-top:12px;padding:9px 15px;
+    background:var(--brand);color:#fff;border-radius:9px;font-size:12.5px;font-weight:650;text-decoration:none}
+  .lib-cta:hover{filter:brightness(1.08)}
+  .lib-cta.off{background:var(--surface-2);color:var(--ink-3);border:1px dashed var(--line-strong);cursor:default}
+  .lib-kv{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
+  .lib-kv div{background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:9px 11px}
+  .lib-kv dt{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);font-weight:700;margin:0 0 3px}
+  .lib-kv dd{margin:0;font-family:var(--mono);font-size:12px;color:var(--ink)}
+  @media(max-width:620px){.lib-grid{grid-template-columns:1fr}.lib-tbl{font-size:11.5px}.lib-tbl th,.lib-tbl td{padding:7px 8px}}
 </style>
 
 <div class="wrap">
@@ -390,6 +436,7 @@
       <button class="appnav-btn active" data-view="roadmap" role="tab" type="button">🛣<span class="ab-t"> Roadmap</span></button>
       <button class="appnav-btn" data-view="comms" role="tab" type="button">💬<span class="ab-t"> Client Communication</span> <span class="ab-badge" id="ccNavBadge" hidden>0</span></button>
       <button class="appnav-btn" data-view="client" role="tab" type="button">👁<span class="ab-t"> Client View</span></button>
+      <button class="appnav-btn" data-view="library" role="tab" type="button" id="libNavBtn" hidden>📚<span class="ab-t"> Library</span></button>
     </nav>
     <span class="spacer"></span>
     <button id="themeBtn" class="theme-toggle" type="button" aria-label="Toggle dark / light mode" title="Toggle dark / light mode">
@@ -501,6 +548,10 @@
   <div id="view-client" class="view" hidden>
     <div id="clientBody"></div>
   </div><!-- /view-client -->
+
+  <div id="view-library" class="view" hidden>
+    <div id="libBody"></div>
+  </div><!-- /view-library -->
 </div>
 
 <script>
@@ -796,6 +847,7 @@ document.getElementById("phLine").innerHTML=
   const hash=(location.hash||"").replace("#","").toLowerCase();
   window.__wantComms=(hash==="comms");
   window.__wantClient=(hash==="client");
+  window.__wantLibrary=(hash==="library");
   let idx=stages.findIndex(s=>s.code.toLowerCase()===hash);
   if(idx<0)idx=stages.findIndex(s=>s.status==="now");
   select(idx<0?0:idx);
@@ -1169,18 +1221,153 @@ function renderClient(){
 }
 
 // ----- view switching -----
-const VIEWS={roadmap:document.getElementById("view-roadmap"),comms:document.getElementById("view-comms"),client:document.getElementById("view-client")};
-let ccInit=false, clientInit=false;
+// ===== Library =====
+// Internal index of everything we use on this engagement.
+//
+// NOTE ON SECRETS: this page is PUBLIC (public repo -> GitHub Pages). Hiding the tab is
+// cosmetic, not security — anyone can read the source. So NOTHING secret goes in here:
+// no passwords, no usernames, no API keys, no tokens. The credential section is an
+// inventory of what exists and links out to the sheet, where access is actually enforced.
+// When the authenticated portal ships (M3), move the real values there, not here.
+
+const LIB_SHEET = "";  // <- Google Sheet with the actual credentials (access-controlled)
+const LIB_BOARD = "";  // <- Hypr board URL for the NovaManage project
+
+const GH_PRIV = "https://github.com/adminhypr/novamanage";
+const GH_PUB  = "https://github.com/paparapogi/novamanage-roadmap";
+const doc = (f) => `${GH_PRIV}/blob/main/${f}`;
+
+const LIBRARY = [
+  { h:"Live pages", items:[
+    { i:"🛣", n:"Roadmap (this page)", d:"Progress by milestone. Statuses come from the Hypr board and refresh every morning.", u:"https://paparapogi.github.io/novamanage-roadmap/", tag:"pub" },
+    { i:"👁", n:"Client View", d:"What Ari sees: plain-English phase, what's done, and what we need from him.", u:"https://paparapogi.github.io/novamanage-roadmap/#client", tag:"pub" },
+    { i:"🔒", n:"Team portal", d:"Real WhatsApp and SMS threads with the client. Not deployed yet — runs locally for now.", u:"", tag:"soon" },
+  ]},
+  { h:"Work tracking", items:[
+    { i:"📋", n:"Hypr board — NovaManage", d:"Source of truth for status. Move a card here and this page follows by morning.", u:LIB_BOARD, tag:"priv" },
+    { i:"🔀", n:"Pull requests", d:"Open work awaiting review and merge.", u:`${GH_PRIV}/pulls`, tag:"priv" },
+    { i:"⚙️", n:"roadmap-sync workflow", d:"The nightly job that pushes board statuses to this page. Run it by hand here.", u:`${GH_PRIV}/actions/workflows/roadmap-sync.yml`, tag:"priv" },
+  ]},
+  { h:"Repositories", items:[
+    { i:"📦", n:"adminhypr/novamanage", d:"The build: scrapers, Rent Manager client, specs, recon tooling.", u:GH_PRIV, tag:"priv" },
+    { i:"🌐", n:"paparapogi/novamanage-roadmap", d:"This page. Roadmap changes go here, not to the build repo.", u:GH_PUB, tag:"pub" },
+  ]},
+  { h:"Documents", items:[
+    { i:"📄", n:"PRD", d:"Scope and architecture. Read this one first.", u:doc("PRD.md"), tag:"priv" },
+    { i:"✍️", n:"Write-Back Spec", d:"The contract for writing bills into Rent Manager. Source of truth for the API payload.", u:doc("WRITE-BACK-SPEC.md"), tag:"priv" },
+    { i:"🗺", n:"Implementation Plan", d:"Milestone-by-milestone build plan and the database schema.", u:doc("IMPLEMENTATION-PLAN.md"), tag:"priv" },
+    { i:"🔌", n:"Provider Matrix", d:"How hard each utility is to scrape, and why. CNG is the easy one, Eversource is not.", u:doc("provider-matrix.md"), tag:"priv" },
+    { i:"⚡", n:"Eversource Assessment", d:"Deep dive: Okta login, WebForms navigation, PDF parsing.", u:doc("eversource-assessment.md"), tag:"priv" },
+    { i:"🔥", n:"CNG Assessment", d:"Deep dive: Playwright login into the Avangrid JSON API behind it.", u:doc("cng-assessment.md"), tag:"priv" },
+    { i:"🔎", n:"Needs Assessment", d:"What the client asked for, before we scoped it.", u:doc("NEEDS-ASSESSMENT.md"), tag:"priv" },
+    { i:"❓", n:"Requirements Questionnaire", d:"The questions we put to Ari and his answers.", u:doc("NovaManage-Requirements-Questionnaire.md"), tag:"priv" },
+  ]},
+  { h:"Systems we connect to", items:[
+    { i:"🏢", n:"Rent Manager Web API", d:"Where bills get written. Token is per-location, so we re-auth for each one.", u:"https://redev.api.rentmanager.com", tag:"priv" },
+    { i:"💬", n:"GoHighLevel", d:"Where client WhatsApp and SMS conversations live. We read, never send.", u:"https://app.gohighlevel.com", tag:"priv" },
+    { i:"🔥", n:"CNG portal", d:"Natural gas. Login leads to an Avangrid JSON API.", u:"https://www.cngcorp.com", tag:"priv" },
+    { i:"⚡", n:"Eversource portal", d:"Electric and gas. The hardest scrape of the four.", u:"https://login.eversource.com", tag:"priv" },
+    { i:"💧", n:"MDC portal", d:"Metropolitan District water. Has 2FA.", u:"https://themdc.idox.net", tag:"priv" },
+    { i:"💧", n:"Aquarion portal", d:"Water. Same idox platform as MDC, also 2FA.", u:"https://secure8.i-doxs.net/AquarionWater/signin.aspx", tag:"priv" },
+  ]},
+];
+
+// Inventory only. No usernames, no passwords — see the note at the top of this block.
+const LIB_CREDS = [
+  { p:"Rent Manager", n:"1 API user", twofa:false, reach:true,  unlocks:"Read and write the books. This is the account M0-5 proved writes with." },
+  { p:"CNG",          n:"4 logins",   twofa:false, reach:false, unlocks:"Gas bills for Carriage-Regency, Nova, and two SBM accounts." },
+  { p:"Eversource",   n:"9 logins",   twofa:false, reach:false, unlocks:"Electric across all in-scope properties. One login is for Garden, which drops out of scope in Aug 2026." },
+  { p:"MDC",          n:"5 logins",   twofa:true,  reach:false, unlocks:"Hartford-area water. 2FA codes go to Ari's email." },
+  { p:"Aquarion",     n:"1 login",    twofa:true,  reach:true,  unlocks:"Water for the SBM portfolio. The only portal we can currently reach from Manila." },
+];
+
+const LIB_FACTS = [
+  { k:"In-scope locations", v:"3, 12, 17" },
+  { k:"Out of scope",       v:"1, 14, 15, 16" },
+  { k:"Properties in scope",v:"~45" },
+  { k:"Auth endpoint",      v:"POST /Authentication/AuthorizeUser" },
+  { k:"Auth header",        v:"X-RM12Api-ApiToken" },
+  { k:"Bills resource",     v:"/Bills  (not /APBills)" },
+  { k:"Valid embeds",       v:"BillDetails, Account, Vendor" },
+  { k:"Token lifetime",     v:"24h, or 15min idle" },
+  { k:"Test property",      v:"PropertyID 27 · UnitID 2315" },
+  { k:"Test GL / bank",     v:"GL 219 · Bank 276" },
+];
+
+function renderLibrary(){
+  const card = (it) => {
+    const inner = `<div class="lc-top"><span class="lc-ico">${it.i}</span><span class="lc-name">${esc(it.n)}</span>
+        <span class="lib-tag ${it.tag}">${it.tag==="priv"?"internal":it.tag==="pub"?"public":"not yet"}</span></div>
+      <p class="lc-desc">${esc(it.d)}</p>
+      ${it.u?`<div class="lc-url">${esc(it.u.replace(/^https?:\/\//,""))}</div>`:""}`;
+    return it.u
+      ? `<a class="lib-card" href="${it.u}" target="_blank" rel="noopener noreferrer">${inner}</a>`
+      : `<div class="lib-card">${inner}</div>`;
+  };
+
+  const sections = LIBRARY.map(s=>`
+    <div class="lib-sec"><h3>${esc(s.h)}</h3>
+      <div class="lib-grid">${s.items.map(card).join("")}</div>
+    </div>`).join("");
+
+  const creds = `
+    <div class="lib-sec"><h3>Credentials</h3>
+      <table class="lib-tbl">
+        <thead><tr><th>Provider</th><th>Logins</th><th>2FA</th><th>Reachable from PH</th><th>What it unlocks</th></tr></thead>
+        <tbody>${LIB_CREDS.map(c=>`<tr>
+          <td><b>${esc(c.p)}</b></td><td>${esc(c.n)}</td>
+          <td>${c.twofa?'<span class="lib-no">Yes</span>':"No"}</td>
+          <td>${c.reach?'<span class="lib-yes">Yes</span>':'<span class="lib-no">Blocked</span>'}</td>
+          <td>${esc(c.unlocks)}</td></tr>`).join("")}</tbody>
+      </table>
+      ${LIB_SHEET
+        ? `<a class="lib-cta" href="${LIB_SHEET}" target="_blank" rel="noopener noreferrer">🔑 Open the credentials sheet</a>`
+        : `<span class="lib-cta off">🔑 Credentials sheet — link not set yet</span>`}
+    </div>`;
+
+  const facts = `
+    <div class="lib-sec"><h3>Reference</h3>
+      <div class="lib-kv">${LIB_FACTS.map(f=>`<div><dt>${esc(f.k)}</dt><dd>${esc(f.v)}</dd></div>`).join("")}</div>
+    </div>`;
+
+  document.getElementById("libBody").innerHTML = `
+    <div class="lib-wrap">
+      <div class="lib-head">
+        <h2>Library</h2>
+        <p>Everything this engagement runs on, in one place: where the work is tracked, what we've written down, and what we connect to.</p>
+      </div>
+      <div class="lib-note"><span>⚠️</span><span><b>No passwords live on this page.</b> It's served from a public repo, so hiding this tab keeps it out of the way but does not make it private. Actual credentials stay in the access-controlled sheet, and move into the team portal once that ships.</span></div>
+      ${sections}${creds}${facts}
+    </div>`;
+}
+
+const VIEWS={roadmap:document.getElementById("view-roadmap"),comms:document.getElementById("view-comms"),client:document.getElementById("view-client"),library:document.getElementById("view-library")};
+let ccInit=false, clientInit=false, libInit=false;
+
+// Library is team-facing: hidden unless you ask for it with ?team=1 or #library.
+// Cosmetic only (the page is public) — see the note above LIBRARY. Sticks for the
+// session so tab-switching doesn't lose it.
+const LIB_TEAM_ONLY=true;
+const libAllowed=(()=>{
+  if(!LIB_TEAM_ONLY)return true;
+  let saved=false; try{saved=sessionStorage.getItem("nm-team")==="1";}catch(e){}
+  const asked=/[?&]team=1/.test(location.search)||location.hash==="#library";
+  if(asked){try{sessionStorage.setItem("nm-team","1");}catch(e){}}
+  return asked||saved;
+})();
+if(libAllowed)document.getElementById("libNavBtn").hidden=false;
 function showView(v){
   for(const k in VIEWS)VIEWS[k].hidden=(k!==v);
   document.querySelectorAll(".appnav-btn").forEach(b=>b.classList.toggle("active",b.dataset.view===v));
   if(v==="comms"){if(!ccInit){ccRenderAll();ccInit=true;}try{history.replaceState(null,"","#comms");}catch(e){}}
   else if(v==="client"){renderClient();clientInit=true;try{history.replaceState(null,"","#client");}catch(e){}}
+  else if(v==="library"){if(!libInit){renderLibrary();libInit=true;}try{history.replaceState(null,"","#library");}catch(e){}}
   else{try{history.replaceState(null,"","#"+stages[cur].code.toLowerCase());}catch(e){}}
   window.scrollTo({top:0,behavior:"instant"in window?"instant":"auto"});
 }
 document.querySelectorAll(".appnav-btn").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
 ccBadge();
-if(window.__wantClient)showView("client");
+if(window.__wantLibrary&&libAllowed)showView("library");
+else if(window.__wantClient)showView("client");
 else if(window.__wantComms)showView("comms");
 </script>
