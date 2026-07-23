@@ -595,12 +595,12 @@ const stages=[
    {t:"First-write test — voidable bill, GET back, void path",s:"done",id:"M0-5",o:"Dev team · Ari",n:"PASSED — $1 bill posted, read back, deleted cleanly. Nested BillDetails post in ONE call ✓; DELETE works ✓. Blocker was a missing AccountType:\"Vendor\" field.",p:"Done. We posted a $1 test bill to Ari's test property, confirmed it landed, and deleted it — a clean round trip. This proves we can safely put bills into Rent Manager, which was the single biggest unknown in the whole project."},
    {t:"Confirm redev = production vs sandbox",s:"pending",id:"M0-6",o:"Dev team",p:"Double-confirm the system we connect to is the client's real live books (all signs say yes) — which is why we treat every write with extreme care."},
    {t:"Vendor audit — each provider × active location",s:"pending",id:"M0-7",o:"Dev team",p:"For every utility company, check it exists in every Rent Manager drawer — a bill needs somewhere to land. Missing ones: Ari creates them."},
-   {t:"Import Ari's CNG + Eversource bots onto our stack",s:"pending",id:"M0-8",o:"Dev team",p:"Take Ari's existing gas & electric bill-downloading robots and get them running on our system instead of his old setup."},
-   {t:"PDF fixture harness + golden-file parser tests",s:"pending",id:"M0-9",o:"Dev team",p:"Keep a folder of real past bills and automatic checks that prove our bill-reader reads them perfectly — so a future change can never silently break it."},
+   {t:"Import Ari's CNG + Eversource bots onto our stack",s:"done",id:"M0-8",o:"Dev team",p:"Take Ari's existing gas & electric bill-downloading robots and get them running on our system instead of his old setup."},
+   {t:"PDF fixture harness + golden-file parser tests",s:"active",id:"M0-9",o:"Dev team",p:"Keep a folder of real past bills and automatic checks that prove our bill-reader reads them perfectly — so a future change can never silently break it."},
    {t:"Secrets bootstrap + pre-commit scan hook",s:"active",id:"M0-10",o:"Team",n:"RM + CNG/Eversource logins received and stored locally (git-ignored); Doppler vault + pre-commit scan still to do",p:"Move all passwords into a proper vault and add a guard that blocks anyone from accidentally uploading a password with the code."}],
   gate:"schema merged · RM client tested · first-write documented · both bots run on our stack · fixtures green · rate limit measured"},
 
- {step:"03",code:"M1",title:"Shadow Pipeline",full:"Shadow Pipeline (CNG + Eversource)",status:"soon",frac:0.335,
+ {step:"03",code:"M1",title:"Shadow Pipeline",full:"Shadow Pipeline (CNG + Eversource)",status:"done",frac:0.335,
   owner:"Team",total:7,when:"Weeks 2–3 · first shadow cycle",whenShort:"WK 2–3",
   plain:"Practice mode. The system does the entire job — downloads bills, figures out which building each one belongs to — but does NOT enter anything into Rent Manager. It writes down what it WOULD do, and we compare that against what the humans actually typed. Trust is earned here.",
   tasks:[
@@ -617,7 +617,7 @@ const stages=[
    {t:"Go-live per provider — after shadow diff ≥98%, CNG first",s:"pending",o:"Ian · Ari",p:"Flip the switch one company at a time (gas company first, since its robot is the most reliable). Ari approves each flip."},
    {t:"Live poster + ledger + dedup-vs-RM + supersede flow",s:"pending",o:"Dev team",p:"Enter bills for real — with a logbook that guarantees no bill is ever entered twice, and a review step for corrected/revised bills instead of silently overwriting."},
    {t:"Payment reconciliation — bank last-4 vs default bank",s:"pending",o:"Dev team",p:"Check every bill got paid from the RIGHT bank account. A mis-set autopay currently goes unnoticed — this flags it."},
-   {t:"Eversource hardening — retry, per-account isolation, DOM-drift alert",s:"pending",o:"Dev team",p:"Toughen up the fragile Eversource robot: retry when the website hiccups, and raise an alarm BEFORE bill day if the website changed shape."}],
+   {t:"Eversource hardening — retry, per-account isolation, DOM-drift alert",s:"active",o:"Dev team",p:"Toughen up the fragile Eversource robot: retry when the website hiccups, and raise an alarm BEFORE bill day if the website changed shape."}],
   gate:"one full month posting live · zero silent failures · zero duplicates · Ari signs off against the books"},
 
  {step:"05",code:"M3",title:"Portal + AI",full:"Portal + AI Analysis",status:"soon",frac:0.635,
@@ -628,11 +628,11 @@ const stages=[
    {t:"Anomaly engine — spike / leak / overcharge, seasonal baselines",s:"pending",o:"Dev team",p:"Automatic alarms: a bill much higher than that meter's usual (season-adjusted), water usage that looks like a running-toilet leak, or a rate that doesn't match sister accounts."}],
   gate:"Ari + Tovi run their monthly utility review entirely in the portal · anomaly back-test reviewed"},
 
- {step:"06",code:"M4",title:"Expansion",full:"Provider Expansion",status:"soon",frac:0.785,
+ {step:"06",code:"M4",title:"Expansion",full:"Provider Expansion",status:"now",frac:0.785,
   owner:"Team · rolling",total:10,when:"Sep+ · rolling, overlaps M3",whenShort:"SEP+",
   plain:"Adding the rest of the utility companies, one at a time, easiest first. Each follows the same recipe: build its downloader → practice mode → compare → go live.",
   tasks:[
-   {t:"Cheapest-first: UI → MDC+Aquarion → New Britain W&S → All Waste → CWPM → All American+USA Waste",s:"pending",o:"Dev team",p:"Build a bill-downloader for each of the 7 remaining companies (electric, water, trash), starting with the ones most similar to what already works."},
+   {t:"Cheapest-first: UI → MDC+Aquarion → New Britain W&S → All Waste → CWPM → All American+USA Waste",s:"active",o:"Dev team",p:"Build a bill-downloader for each of the 7 remaining companies (electric, water, trash), starting with the ones most similar to what already works."},
    {t:"RM-pull trio — Waterbury, RWA, Bridgeport WPCA (parse RM attachments)",s:"pending",o:"Dev team",p:"Three city utilities already deliver their PDF bills straight into Rent Manager — for those, we read the PDFs from there instead of scraping a website."}],
   gate:"every provider flows (scrape or RM-pull) — or is documented-blocked with the SOW fallback invoked"},
 
