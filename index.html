@@ -793,6 +793,7 @@ function select(i){
 }
 // ===== changelog / last-updated ribbon (newest first) =====
 const CHANGELOG=[
+ {d:"Jul 21, 2026",t:"Ari sent logins for the remaining six providers: United Illuminating, New Britain Water & Sewer, CWPM, All Waste, and USA / All American Waste (the last two merged). That completes the credential set for every provider on the list — we now hold logins for all of them. Still open: one MDC password (office@) comes back wrong, and ~27 gas accounts have addresses that don't match any property we can see. Separately, testing the CNG account data confirmed common-area bills post at the PROPERTY level, not per meter-unit — which makes the address crosswalk a smaller job than planned."},
  {d:"Jul 15, 2026",t:"Ari sent the CNG + Eversource logins, so phase-1 bill pulling is unblocked. Two useful things came with it: 2FA only affects MDC and Aquarion (which share a single login), not CNG/Eversource — so that whole piece shrinks from an architecture problem to one edge case. And Ari asked that adding future locations stays easy, which is already how it's built: locations are configuration, and the vendor, GL account and bank are all looked up at runtime rather than hard-coded."},
  {d:"Jul 15, 2026",t:"Scope confirmed by Ari: we build for 3 locations, not 7. In scope are Nova South, Carriage-Regency and SBM Portfolio (~45 properties). The client no longer manages the two Hartford locations, and Garden drops off in August. Bonus: the Location 15 item we'd been chasing was never a blocker — that location is simply out of scope, so it's off Ari's list."},
  {d:"Jul 15, 2026",t:"🎉 M0-5 PASSED — the first write into Rent Manager is proven. Posted a $1 test bill to Ari's test property, read it back, and deleted it cleanly. This closes the single biggest unknown of the project. Bonus: bills post in ONE call (no second call needed) and deleting works via the API (no manual void). The blocker turned out to be one undocumented field (AccountType), found by comparing against a bill Ari posted by hand — thanks Ari!"},
@@ -1279,6 +1280,11 @@ const LIB_CREDS = [
   { p:"Eversource",   n:"9 logins",   twofa:false, reach:false, unlocks:"Electric across all in-scope properties. One login is for Garden, which drops out of scope in Aug 2026." },
   { p:"MDC",          n:"5 logins",   twofa:true,  reach:false, unlocks:"Hartford-area water. 2FA codes go to Ari's email." },
   { p:"Aquarion",     n:"1 login",    twofa:true,  reach:true,  unlocks:"Water for the SBM portfolio. The only portal we can currently reach from Manila." },
+  { p:"United Illuminating", n:"1 login",  twofa:false, reach:null, unlocks:"Electric. Avangrid platform like CNG. Received 2026-07-21, not tested yet." },
+  { p:"New Britain W&S",     n:"2 logins", twofa:false, reach:null, unlocks:"Water & sewer, posts at property level. Received 2026-07-21, not tested yet." },
+  { p:"CWPM",                n:"1 login",  twofa:false, reach:null, unlocks:"Trash, property level. Received 2026-07-21, not tested yet." },
+  { p:"All Waste",           n:"2 logins", twofa:false, reach:null, unlocks:"Trash hauler, property level. Received 2026-07-21, not tested yet." },
+  { p:"USA / All American Waste", n:"2 logins", twofa:false, reach:null, unlocks:"Trash hauler (the two merged). Property level. Received 2026-07-21, not tested yet." },
 ];
 
 const LIB_FACTS = [
@@ -1317,7 +1323,7 @@ function renderLibrary(){
         <tbody>${LIB_CREDS.map(c=>`<tr>
           <td><b>${esc(c.p)}</b></td><td>${esc(c.n)}</td>
           <td>${c.twofa?'<span class="lib-no">Yes</span>':"No"}</td>
-          <td>${c.reach?'<span class="lib-yes">Yes</span>':'<span class="lib-no">Blocked</span>'}</td>
+          <td>${c.reach===true?'<span class="lib-yes">Yes</span>':c.reach===false?'<span class="lib-no">Blocked</span>':'<span style="color:var(--ink-3)">Not tested</span>'}</td>
           <td>${esc(c.unlocks)}</td></tr>`).join("")}</tbody>
       </table>
       ${LIB_SHEET
