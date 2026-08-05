@@ -652,6 +652,7 @@ const road=document.getElementById("road");
 const L=road.getTotalLength();
 const gMarkers=document.getElementById("markers");
 
+const carIdx=stages.reduce((a,s,i)=>s.status==="now"?i:a,-1); // one car only, on the furthest-along in-progress stage
 stages.forEach((st,i)=>{
   const pt=road.getPointAtLength(L*st.frac);
   const up=(i%2===0);
@@ -692,10 +693,12 @@ stages.forEach((st,i)=>{
     g.appendChild(el("circle",{class:"nowcore",cx:pt.x,cy:pt.y,r:"15",fill:"var(--now)",filter:"url(#pinshadow)"}));
     g.appendChild(el("circle",{cx:pt.x,cy:pt.y,r:"15",fill:"none",stroke:"#ffffff","stroke-opacity":".95","stroke-width":"2.5"}));
     g.appendChild(el("circle",{cx:pt.x,cy:pt.y,r:"5",fill:"#fff"}));
-    // car flipped to face right (emoji renders facing left by default)
-    const carG=el("g",{transform:`translate(${2*pt.x} 0) scale(-1 1)`});
-    const car=el("text",{class:"car",x:pt.x,y:pt.y-32,"text-anchor":"middle","font-size":"26"});
-    car.textContent="🚗"; carG.appendChild(car); g.appendChild(carG);
+    // car flipped to face right (emoji renders facing left by default) — only on the frontier stage
+    if(i===carIdx){
+      const carG=el("g",{transform:`translate(${2*pt.x} 0) scale(-1 1)`});
+      const car=el("text",{class:"car",x:pt.x,y:pt.y-32,"text-anchor":"middle","font-size":"26"});
+      car.textContent="🚗"; carG.appendChild(car); g.appendChild(carG);
+    }
   } else {
     g.appendChild(el("circle",{cx:pt.x,cy:pt.y,r:"15",fill:"var(--soon)",filter:"url(#pinshadow)"}));
     g.appendChild(el("circle",{cx:pt.x,cy:pt.y,r:"15",fill:"none",stroke:"#ffffff","stroke-opacity":".9","stroke-width":"2.5"}));
