@@ -633,7 +633,7 @@ const road=document.getElementById("road");
 const L=road.getTotalLength();
 const gMarkers=document.getElementById("markers");
 
-const carIdx=stages.findIndex(s=>s.status==="now"); // one car, on the earliest in-progress stage (the critical-path frontier — parallel later work doesn't drag it to the end)
+const carIdx=stages.findIndex(s=>s.status!=="done"); // car sits on the earliest NOT-done step; only advances once that step is fully done (parallel work on later steps doesn't move it)
 stages.forEach((st,i)=>{
   const pt=road.getPointAtLength(L*st.frac);
   const up=(i%2===0);
