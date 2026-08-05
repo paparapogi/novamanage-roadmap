@@ -633,7 +633,7 @@ const road=document.getElementById("road");
 const L=road.getTotalLength();
 const gMarkers=document.getElementById("markers");
 
-const carIdx=stages.reduce((a,s,i)=>s.status==="now"?i:a,-1); // one car only, on the furthest-along in-progress stage
+const carIdx=stages.findIndex(s=>s.status==="now"); // one car, on the earliest in-progress stage (the critical-path frontier — parallel later work doesn't drag it to the end)
 stages.forEach((st,i)=>{
   const pt=road.getPointAtLength(L*st.frac);
   const up=(i%2===0);
