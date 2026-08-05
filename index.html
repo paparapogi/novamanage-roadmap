@@ -572,8 +572,7 @@ const SVGNS="http://www.w3.org/2000/svg";
 const el=(n,a={})=>{const e=document.createElementNS(SVGNS,n);for(const k in a)e.setAttribute(k,a[k]);return e;};
 
 const stages=[
- {step:"01",code:"SETUP",title:"Setup",full:"Onboarding & Environment",status:"done",frac:0.035,
-  owner:"You",total:6,when:"Completed Jul 15, 2026",whenShort:"DONE",
+ {step:"01",code:"SETUP",title:"Setup",full:"Onboarding & Environment",status:"done",frac:0.05,owner:"You",total:6,when:"Completed Jul 15, 2026",whenShort:"DONE",
   plain:"Getting the new computer ready and confirming the deal is real. All done.",
   tasks:[
    {t:"Windows machine provisioned — Node 24, pnpm, GitHub CLI",s:"done",p:"Installed the basic tools a developer needs on the new PC."},
@@ -581,70 +580,52 @@ const stages=[
    {t:"RM API credentials configured & git-ignored",s:"done",p:"Saved the Rent Manager login on this machine, in a way that can never be accidentally uploaded."},
    {t:"Docs read — PRD, Write-Back Spec, Provider Matrix, Impl. Plan",s:"done",p:"Read the full project plan and technical notes."},
    {t:"Read-only recon vs live RM — 7 locations / 250 GLs / 71 vendors",s:"done",p:"Test login to Rent Manager worked — we can see the client's data (looking only, touching nothing)."},
-   {t:"Contract signed + deposit paid",s:"done",p:"Paperwork and payment confirmed — we're officially hired."}],
-  gate:null},
-
- {step:"02",code:"M0",title:"Foundations",full:"Foundations & De-risking",status:"now",frac:0.185,
-  owner:"Team · Week 1",total:10,when:"Week 1 · Jul 14–18",whenShort:"WK 1",
+   {t:"Contract signed + deposit paid",s:"done",p:"Paperwork and payment confirmed — we're officially hired."}
+  ],gate:null},
+ {step:"02",code:"M0",title:"Foundations",full:"Foundations & De-risking",status:"done",frac:0.22,owner:"Team · Week 1",total:7,when:"Completed",whenShort:"DONE",
   plain:"Laying the foundation: agree on how data will be stored, prove we can safely read and write Rent Manager, and get Ari's existing bill-downloading robots running on our setup. Nothing tenant-facing happens here.",
   tasks:[
    {t:"Repo scaffold + core schema migrations (commit schema first)",s:"done",id:"M0-1",o:"Team · pair",n:"merged to main (PR #1) — 10 tables, tests green",p:"Design the project's filing cabinet: the database tables where every bill, match and action gets stored. Both developers must agree on this first so their halves fit together."},
-   {t:"RM Web API client — auth loop, GET wrappers, re-auth on 401",s:"active",id:"M0-2",o:"Dev team",p:"Write the code that logs into Rent Manager and reads data out of it. Every later feature walks through this front door."},
+   {t:"RM Web API client — auth loop, GET wrappers, re-auth on 401",s:"done",id:"M0-2",o:"Dev team",p:"Write the code that logs into Rent Manager and reads data out of it. Every later feature walks through this front door."},
    {t:"Recon locations 14–17 → update spec table",s:"done",id:"M0-3",o:"Dev team",n:"merged (PR #2) + scope confirmed by Ari: only 3 locations are in scope (Nova South, Carriage-Regency, SBM Portfolio). GLs are per-location.",p:"Rent Manager is split into 7 'drawers'. We opened the four nobody had looked in and listed what's there. Turns out only 3 drawers actually matter: the client no longer manages the Hartford ones, and Garden goes away in August. That cuts the work meaningfully."},
-   {t:"Rate-limit probe — 100-GET burst per location",s:"pending",id:"M0-4",o:"Dev team",p:"Find out how fast we're allowed to ask Rent Manager questions before it tells us to slow down — so the nightly runs never get cut off."},
    {t:"First-write test — voidable bill, GET back, void path",s:"done",id:"M0-5",o:"Dev team · Ari",n:"PASSED — $1 bill posted, read back, deleted cleanly. Nested BillDetails post in ONE call ✓; DELETE works ✓. Blocker was a missing AccountType:\"Vendor\" field.",p:"Done. We posted a $1 test bill to Ari's test property, confirmed it landed, and deleted it — a clean round trip. This proves we can safely put bills into Rent Manager, which was the single biggest unknown in the whole project."},
-   {t:"Confirm redev = production vs sandbox",s:"pending",id:"M0-6",o:"Dev team",p:"Double-confirm the system we connect to is the client's real live books (all signs say yes) — which is why we treat every write with extreme care."},
-   {t:"Vendor audit — each provider × active location",s:"pending",id:"M0-7",o:"Dev team",p:"For every utility company, check it exists in every Rent Manager drawer — a bill needs somewhere to land. Missing ones: Ari creates them."},
    {t:"Import Ari's CNG + Eversource bots onto our stack",s:"done",id:"M0-8",o:"Dev team",p:"Take Ari's existing gas & electric bill-downloading robots and get them running on our system instead of his old setup."},
-   {t:"PDF fixture harness + golden-file parser tests",s:"active",id:"M0-9",o:"Dev team",p:"Keep a folder of real past bills and automatic checks that prove our bill-reader reads them perfectly — so a future change can never silently break it."},
-   {t:"Secrets bootstrap + pre-commit scan hook",s:"active",id:"M0-10",o:"Team",n:"RM + CNG/Eversource logins received and stored locally (git-ignored); Doppler vault + pre-commit scan still to do",p:"Move all passwords into a proper vault and add a guard that blocks anyone from accidentally uploading a password with the code."}],
-  gate:"schema merged · RM client tested · first-write documented · both bots run on our stack · fixtures green · rate limit measured"},
-
- {step:"03",code:"M1",title:"Shadow Pipeline",full:"Shadow Pipeline (CNG + Eversource)",status:"done",frac:0.335,
-  owner:"Team",total:7,when:"Weeks 2–3 · first shadow cycle",whenShort:"WK 2–3",
+   {t:"PDF fixture harness + golden-file parser tests",s:"done",id:"M0-9",o:"Dev team",p:"Keep a folder of real past bills and automatic checks that prove our bill-reader reads them perfectly — so a future change can never silently break it."},
+   {t:"Secrets bootstrap + pre-commit scan hook",s:"done",id:"M0-10",o:"Team",n:"RM + CNG/Eversource logins received and stored locally (git-ignored); Doppler vault + pre-commit scan still to do",p:"Move all passwords into a proper vault and add a guard that blocks anyone from accidentally uploading a password with the code."}
+  ],gate:"schema merged · RM client tested · first-write documented · both bots run on our stack · fixtures green · rate limit measured"},
+ {step:"03",code:"M1",title:"Shadow Pipeline",full:"Shadow Pipeline (CNG + Eversource)",status:"done",frac:0.39,owner:"Team",total:2,when:"Completed",whenShort:"DONE",
   plain:"Practice mode. The system does the entire job — downloads bills, figures out which building each one belongs to — but does NOT enter anything into Rent Manager. It writes down what it WOULD do, and we compare that against what the humans actually typed. Trust is earned here.",
   tasks:[
-   {t:"Normalizer → staged_bills; PDFs to storage",s:"active",o:"Dev team",p:"Turn every downloaded bill — whatever company it came from — into one standard format, and file the PDF neatly."},
-   {t:"Address-based crosswalk build + match run + review queue",s:"active",o:"Dev team",p:"The matching brain: a utility bill says '100 Main St' — this figures out which building and meter that is in Rent Manager. The few it can't match go on a short list for a human to confirm once."},
-   {t:"Shadow poster — writes would-POST payloads, no RM writes",s:"pending",o:"Dev team",p:"The system writes down exactly what it WOULD enter into Rent Manager — without actually entering it. A dress rehearsal, every night."},
-   {t:"Shadow-diff job — our guesses vs the team's manual entries",s:"pending",o:"Team",p:"A nightly report card: our practice answers vs. the humans' real entries. When they agree 98%+, we've earned the right to go live."}],
-  gate:"a full billing cycle flows to shadow ledger untouched by hand · crosswalk coverage ≥90% · shadow-diff report exists"},
-
- {step:"04",code:"M2",title:"Live Write-Back",full:"Live Write-Back + Reconciliation",status:"soon",frac:0.485,
-  owner:"Team · Ari signs off",total:5,when:"August billing cycle",whenShort:"AUG",
+   {t:"Normalizer → staged_bills; PDFs to storage",s:"done",o:"Dev team",p:"Turn every downloaded bill — whatever company it came from — into one standard format, and file the PDF neatly."},
+   {t:"Address-based crosswalk build + match run + review queue",s:"done",o:"Dev team",p:"The matching brain: a utility bill says '100 Main St' — this figures out which building and meter that is in Rent Manager. The few it can't match go on a short list for a human to confirm once."}
+  ],gate:"a full billing cycle flows to shadow ledger untouched by hand · crosswalk coverage ≥90% · shadow-diff report exists"},
+ {step:"04",code:"M2",title:"Live Write-Back",full:"Live Write-Back & Go-Live",status:"now",frac:0.56,owner:"Team · Ari signs off",total:11,when:"In progress · go-live gate",whenShort:"NOW",
   plain:"Going live — carefully. Once practice mode matches the humans 98%+, the system starts really entering bills, one utility company at a time. The day it takes over a company, the team stops typing that company's bills. Safety nets everywhere.",
   tasks:[
+   {t:"Client sign-off: which building each utility account belongs to",s:"pending",p:"Ari confirms the account-to-building matches we couldn't place automatically, so no bill ever posts against the wrong property."},
+   {t:"Set the New Britain water/sewer default expense account",s:"pending",p:"New Britain's vendor has no default expense account set in Rent Manager yet; the client picks it so those bills post to the right place."},
+   {t:"Confirm redev = production vs sandbox",s:"pending",o:"Dev team",p:"Double-confirm the system we connect to is the client's real live books (all signs say yes) — which is why we treat every write with extreme care."},
+   {t:"Vendor audit — each provider × active location",s:"pending",o:"Dev team",p:"For every utility company, check it exists in every Rent Manager drawer — a bill needs somewhere to land. Missing ones: Ari creates them."},
+   {t:"Rate-limit probe — 100-GET burst per location",s:"pending",o:"Dev team",p:"Find out how fast we're allowed to ask Rent Manager questions before it tells us to slow down — so the nightly runs never get cut off."},
+   {t:"Shadow poster — writes would-POST payloads, no RM writes",s:"pending",o:"Dev team",p:"The system writes down exactly what it WOULD enter into Rent Manager — without actually entering it. A dress rehearsal, every night."},
+   {t:"Shadow-diff job — our guesses vs the team's manual entries",s:"pending",o:"Team",p:"A nightly report card: our practice answers vs. the humans' real entries. When they agree 98%+, we've earned the right to go live."},
    {t:"Go-live per provider — after shadow diff ≥98%, CNG first",s:"pending",o:"Ian · Ari",p:"Flip the switch one company at a time (gas company first, since its robot is the most reliable). Ari approves each flip."},
    {t:"Live poster + ledger + dedup-vs-RM + supersede flow",s:"pending",o:"Dev team",p:"Enter bills for real — with a logbook that guarantees no bill is ever entered twice, and a review step for corrected/revised bills instead of silently overwriting."},
    {t:"Payment reconciliation — bank last-4 vs default bank",s:"pending",o:"Dev team",p:"Check every bill got paid from the RIGHT bank account. A mis-set autopay currently goes unnoticed — this flags it."},
-   {t:"Eversource hardening — retry, per-account isolation, DOM-drift alert",s:"active",o:"Dev team",p:"Toughen up the fragile Eversource robot: retry when the website hiccups, and raise an alarm BEFORE bill day if the website changed shape."}],
-  gate:"one full month posting live · zero silent failures · zero duplicates · Ari signs off against the books"},
-
- {step:"05",code:"M3",title:"Portal + AI",full:"Portal + AI Analysis",status:"soon",frac:0.635,
-  owner:"Team",total:3,when:"Aug–Sep",whenShort:"AUG–SEP",
+   {t:"Eversource hardening — retry, per-account isolation, DOM-drift alert",s:"active",o:"Dev team",p:"Toughen up the fragile Eversource robot: retry when the website hiccups, and raise an alarm BEFORE bill day if the website changed shape."}
+  ],gate:"one full month posting live · zero silent failures · zero duplicates · Ari signs off against the books"},
+ {step:"05",code:"M3",title:"Portal + AI",full:"Portal + AI Analysis",status:"soon",frac:0.73,owner:"Team",total:3,when:"Aug–Sep",whenShort:"AUG–SEP",
   plain:"The dashboard. A private website where the team sees every bill's journey, approves the rare items needing human judgment, and gets automatic alarms for weird bills. This replaces the Google Sheets.",
   tasks:[
    {t:"Private portal — pipeline, review queues, reconciliation, audit",s:"pending",o:"Dev team",p:"The team's one-stop website: see every bill's status, approve matches the system wasn't sure about, review payment mismatches, see the full history of everything."},
-   {t:"Anomaly engine — spike / leak / overcharge, seasonal baselines",s:"pending",o:"Dev team",p:"Automatic alarms: a bill much higher than that meter's usual (season-adjusted), water usage that looks like a running-toilet leak, or a rate that doesn't match sister accounts."}],
-  gate:"Ari + Tovi run their monthly utility review entirely in the portal · anomaly back-test reviewed"},
-
- {step:"06",code:"M4",title:"Expansion",full:"Provider Expansion",status:"now",frac:0.785,
-  owner:"Team · rolling",total:10,when:"Sep+ · rolling, overlaps M3",whenShort:"SEP+",
+   {t:"Anomaly engine — spike / leak / overcharge, seasonal baselines",s:"pending",o:"Dev team",p:"Automatic alarms: a bill much higher than that meter's usual (season-adjusted), water usage that looks like a running-toilet leak, or a rate that doesn't match sister accounts."}
+  ],gate:"Ari + Tovi run their monthly utility review entirely in the portal · anomaly back-test reviewed"},
+ {step:"06",code:"M4",title:"Expansion",full:"Provider Expansion",status:"now",frac:0.9,owner:"Team · rolling",total:10,when:"Sep+ · rolling, overlaps M3",whenShort:"SEP+",
   plain:"Adding the rest of the utility companies, one at a time, easiest first. Each follows the same recipe: build its downloader → practice mode → compare → go live.",
   tasks:[
    {t:"Cheapest-first: UI → MDC+Aquarion → New Britain W&S → All Waste → CWPM → All American+USA Waste",s:"active",o:"Dev team",p:"Build a bill-downloader for each of the 7 remaining companies (electric, water, trash), starting with the ones most similar to what already works."},
-   {t:"RM-pull trio — Waterbury, RWA, Bridgeport WPCA (parse RM attachments)",s:"pending",o:"Dev team",p:"Three city utilities already deliver their PDF bills straight into Rent Manager — for those, we read the PDFs from there instead of scraping a website."}],
-  gate:"every provider flows (scrape or RM-pull) — or is documented-blocked with the SOW fallback invoked"},
-
- {step:"07",code:"M5",title:"Collections",full:"Phase 2 — Collections + Legal",status:"soon",frac:0.945,
-  owner:"On client go",total:5,when:"Starts on client go (after P1)",whenShort:"CLIENT GO",
-  plain:"Phase 2: automating the late-rent process. Today it's all tracked by hand in a spreadsheet — late fees, reminder calls, legal notices, court dates. The system will run that timeline. Only the phone calls are fully automatic; every legal step waits for a human.",
-  tasks:[
-   {t:"Delinquency engine — timeline rules, Section 8 split, re-allocation",s:"pending",o:"Dev team",p:"The timeline brain: rent due the 1st, late fee the 11th, calls the 10th–15th, notices by the 15th — it tracks where every late tenant is in that process, automatically."},
-   {t:"Autonomous AI collections calls — disclosures + escape hatch",s:"pending",o:"Dev team",n:"after TCPA/CT check",p:"The AI makes the payment-reminder calls itself. Every call announces it's recorded and always offers a path to a human. A legal compliance check happens before the first real call."},
-   {t:"Notice-to-Quit generation + marshal serve tracking",s:"pending",o:"Dev team",p:"Prepare the formal legal notices for the team to review and hand-sign (never auto-sent), then track the marshal's delivery of each one."},
-   {t:"CT Judicial court-portal eviction tracker (new external build)",s:"pending",o:"Dev team",p:"Watch the Connecticut court website for each eviction case and raise a flag when a filing is late or the attorney missed something — replacing manual case-by-case checking."}],
-  gate:"starts only on the client's go — and not before Ian's TCPA / CT call-recording check"}
+   {t:"RM-pull trio — Waterbury, RWA, Bridgeport WPCA (parse RM attachments)",s:"pending",o:"Dev team",p:"Three city utilities already deliver their PDF bills straight into Rent Manager — for those, we read the PDFs from there instead of scraping a website."}
+  ],gate:"every provider flows (scrape or RM-pull) — or is documented-blocked with the SOW fallback invoked"}
 ];
 
 const colorFor={done:"var(--done)",now:"var(--now)",soon:"var(--soon)"};
