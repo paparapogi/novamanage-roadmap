@@ -614,13 +614,13 @@ const stages=[
    {t:"Payment reconciliation — bank last-4 vs default bank",s:"pending",o:"Dev team",p:"Check every bill got paid from the RIGHT bank account. A mis-set autopay currently goes unnoticed — this flags it."},
    {t:"Eversource hardening — retry, per-account isolation, DOM-drift alert",s:"active",o:"Dev team",p:"Toughen up the fragile Eversource robot: retry when the website hiccups, and raise an alarm BEFORE bill day if the website changed shape."}
   ],gate:"one full month posting live · zero silent failures · zero duplicates · Ari signs off against the books"},
- {step:"05",code:"M3",title:"Portal + AI",full:"Portal + AI Analysis",status:"soon",frac:0.73,owner:"Team",total:3,when:"Aug–Sep",whenShort:"AUG–SEP",
-  plain:"The dashboard. A private website where the team sees every bill's journey, approves the rare items needing human judgment, and gets automatic alarms for weird bills. This replaces the Google Sheets.",
+ {step:"05",code:"M3",title:"Portal + AI",full:"Portal + AI Analysis",status:"now",frac:0.73,owner:"Team",total:3,when:"In progress",whenShort:"NOW",
+  plain:"The dashboard. A private website where the team sees every bill's journey, approves the rare items needing human judgment, and gets automatic alarms for weird bills. This replaces the Google Sheets. The front end is already built and deployed; wiring it to live data is the current work.",
   tasks:[
-   {t:"Private portal — pipeline, review queues, reconciliation, audit",s:"pending",o:"Dev team",p:"The team's one-stop website: see every bill's status, approve matches the system wasn't sure about, review payment mismatches, see the full history of everything."},
+   {t:"Private portal — pipeline, review queues, reconciliation, audit",s:"active",o:"Dev team",p:"The team's one-stop website: see every bill's status, approve matches the system wasn't sure about, review payment mismatches, see the full history of everything."},
    {t:"Anomaly engine — spike / leak / overcharge, seasonal baselines",s:"pending",o:"Dev team",p:"Automatic alarms: a bill much higher than that meter's usual (season-adjusted), water usage that looks like a running-toilet leak, or a rate that doesn't match sister accounts."}
   ],gate:"Ari + Tovi run their monthly utility review entirely in the portal · anomaly back-test reviewed"},
- {step:"06",code:"M4",title:"Expansion",full:"Provider Expansion",status:"now",frac:0.9,owner:"Team · rolling",total:10,when:"Sep+ · rolling, overlaps M3",whenShort:"SEP+",
+ {step:"06",code:"M4",title:"Expansion",full:"Provider Expansion",status:"now",frac:0.9,owner:"Team · rolling",total:10,when:"In progress · rolling",whenShort:"NOW",
   plain:"Adding the rest of the utility companies, one at a time, easiest first. Each follows the same recipe: build its downloader → practice mode → compare → go live.",
   tasks:[
    {t:"Cheapest-first: UI → MDC+Aquarion → New Britain W&S → All Waste → CWPM → All American+USA Waste",s:"active",o:"Dev team",p:"Build a bill-downloader for each of the 7 remaining companies (electric, water, trash), starting with the ones most similar to what already works."},
