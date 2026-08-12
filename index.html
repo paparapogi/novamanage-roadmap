@@ -608,7 +608,7 @@ const stages=[
    {t:"Vendor audit — each provider × active location",s:"pending",o:"Dev team",p:"For every utility company, check it exists in every Rent Manager drawer — a bill needs somewhere to land. Missing ones: Ari creates them."},
    {t:"Rate-limit probe — 100-GET burst per location",s:"pending",o:"Dev team",p:"Find out how fast we're allowed to ask Rent Manager questions before it tells us to slow down — so the nightly runs never get cut off."},
    {t:"Shadow poster — writes would-POST payloads, no RM writes",s:"done",o:"Dev team",p:"The system writes down exactly what it WOULD enter into Rent Manager — without actually entering it. A dress rehearsal, every night."},
-   {t:"Shadow-diff job — our guesses vs the team's manual entries",s:"pending",o:"Team",p:"A nightly report card: our practice answers vs. the humans' real entries. When they agree 98%+, we've earned the right to go live."},
+   {t:"Shadow-diff job — our guesses vs the team's manual entries",s:"done",o:"Team",p:"A nightly report card: our practice answers vs. the humans' real entries. When they agree 98%+, we've earned the right to go live."},
    {t:"Go-live per provider — after shadow diff ≥98%, CNG first",s:"pending",o:"Ian · Ari",p:"Flip the switch one company at a time (gas company first, since its robot is the most reliable). Ari approves each flip."},
    {t:"Live poster + ledger + dedup-vs-RM + supersede flow",s:"pending",o:"Dev team",p:"Enter bills for real — with a logbook that guarantees no bill is ever entered twice, and a review step for corrected/revised bills instead of silently overwriting."},
    {t:"Payment reconciliation — bank last-4 vs default bank",s:"pending",o:"Dev team",p:"Check every bill got paid from the RIGHT bank account. A mis-set autopay currently goes unnoticed — this flags it."},
@@ -624,7 +624,7 @@ const stages=[
   plain:"Adding the rest of the utility companies, one at a time, easiest first. Each follows the same recipe: build its downloader → practice mode → compare → go live.",
   tasks:[
    {t:"Cheapest-first: UI → MDC+Aquarion → New Britain W&S → All Waste → CWPM → All American+USA Waste",s:"active",o:"Dev team",p:"Build a bill-downloader for each of the 7 remaining companies (electric, water, trash), starting with the ones most similar to what already works."},
-   {t:"RM-pull trio — Waterbury, RWA, Bridgeport WPCA (parse RM attachments)",s:"active",o:"Dev team",p:"Three city utilities already deliver their PDF bills straight into Rent Manager — for those, we read the PDFs from there instead of scraping a website."}
+   {t:"RM-pull trio — Waterbury, RWA, Bridgeport WPCA (parse RM attachments)",s:"pending",o:"Dev team",p:"Three city utilities already deliver their PDF bills straight into Rent Manager — for those, we read the PDFs from there instead of scraping a website."}
   ],gate:"every provider flows (scrape or RM-pull) — or is documented-blocked with the SOW fallback invoked"}
 ];
 
