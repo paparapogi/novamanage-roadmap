@@ -611,7 +611,7 @@ const stages=[
    {t:"Shadow-diff job — our guesses vs the team's manual entries",s:"done",o:"Team",p:"A nightly report card: our practice answers vs. the humans' real entries. When they agree 98%+, we've earned the right to go live."},
    {t:"Go-live per provider — after shadow diff ≥98%, CNG first",s:"pending",o:"Ian · Ari",p:"Flip the switch one company at a time (gas company first, since its robot is the most reliable). Ari approves each flip."},
    {t:"Live poster + ledger + dedup-vs-RM + supersede flow",s:"pending",o:"Dev team",p:"Enter bills for real — with a logbook that guarantees no bill is ever entered twice, and a review step for corrected/revised bills instead of silently overwriting."},
-   {t:"Payment reconciliation — bank last-4 vs default bank",s:"pending",o:"Dev team",p:"Check every bill got paid from the RIGHT bank account. A mis-set autopay currently goes unnoticed — this flags it."},
+   {t:"Payment reconciliation — bank last-4 vs default bank",s:"active",o:"Dev team",p:"Check every bill got paid from the RIGHT bank account. A mis-set autopay currently goes unnoticed — this flags it."},
    {t:"Eversource hardening — retry, per-account isolation, DOM-drift alert",s:"done",o:"Dev team",p:"Toughen up the fragile Eversource robot: retry when the website hiccups, and raise an alarm BEFORE bill day if the website changed shape."}
   ],gate:"one full month posting live · zero silent failures · zero duplicates · Ari signs off against the books"},
  {step:"05",code:"M3",title:"Portal + AI",full:"Portal + AI Analysis",status:"now",frac:0.73,owner:"Team",total:3,when:"In progress",whenShort:"NOW",
